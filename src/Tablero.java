@@ -35,37 +35,39 @@ public class Tablero {
 
     //Método para definir el estado inicial del tablero
     public void inicializarTablero(){
+        //*************NEGROS*****************
         //Piezas de la fila 8
-        piezas[0][0] = new Torre(true);
-        piezas[0][1] = new Caballo(true);
-        piezas[0][2] = new Alfil(true);
-        piezas[0][3] = new Reina(true);
-        piezas[0][4] = new Rey(true);
-        piezas[0][5] = new Alfil(true);
-        piezas[0][6] = new Caballo(true);
-        piezas[0][7] = new Torre(true);
+        piezas[0][0] = new Torre();
+        piezas[0][1] = new Caballo();
+        piezas[0][2] = new Alfil();
+        piezas[0][3] = new Reina();
+        piezas[0][4] = new Rey();
+        piezas[0][5] = new Alfil();
+        piezas[0][6] = new Caballo();
+        piezas[0][7] = new Torre();
 
         //Piezas de la fila 7
-        for(int x = 0; x < dim; x++) piezas[1][x] = new Peon(true);
+        for(int x = 0; x < dim; x++) piezas[1][x] = new Peon();
 
         //Espacios vacíos
         for(int x = 2; x < dim-2; x++){
             for(int y = 0; y < dim; y++){
-                piezas[x][y] = new Pieza();
+                piezas[x][y] = new Pieza(Pieza.simbolos[0]);
             }
         }
 
+        //*************BLANCOS*****************
         //Piezas de la fila 2
-        for(int x = 0; x < dim; x++) piezas[6][x] = new Peon(false);
+        for(int x = 0; x < dim; x++) piezas[6][x] = new Peon(true);
 
         //Piezas de la fila 1
-        piezas[7][0] = new Torre(false);
-        piezas[7][1] = new Caballo(false);
-        piezas[7][2] = new Alfil(false);
-        piezas[7][3] = new Reina(false);
-        piezas[7][4] = new Rey(false);
-        piezas[7][5] = new Alfil(false);
-        piezas[7][6] = new Caballo(false);
-        piezas[7][7] = new Torre(false);
+        piezas[7][0] = new Torre(true);
+        piezas[7][1] = new Caballo(true);
+        piezas[7][2] = new Alfil(true);
+        piezas[7][3] = new Reina(true);
+        piezas[7][4] = new Rey(true);
+        piezas[7][5] = new Alfil(true);
+        piezas[7][6] = new Caballo(true);
+        piezas[7][7] = new Torre(true);
     }
 }

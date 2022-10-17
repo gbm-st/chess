@@ -1,7 +1,8 @@
 public class Peon extends Pieza {
     public Peon(boolean color){
-        valor = simbolos[6];
-        formato = "[ " + valor + " ]";
-        this.color = color;
+        super(Pieza.simbolos[6]);
+    }
+    public Peon(){
+        super(Pieza.simbolos[12]);
     }
 }

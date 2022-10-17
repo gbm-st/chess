@@ -1,7 +1,8 @@
 public class Reina extends Pieza{
     public Reina(boolean color){
-        valor = simbolos[2];
-        formato = "[ " + valor + " ]";
-        this.color = color;
+        super(Pieza.simbolos[2]);
+    }
+    public Reina(){
+        super(Pieza.simbolos[8]);
     }
 }

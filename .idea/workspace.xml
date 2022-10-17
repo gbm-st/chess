@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="64226856-4554-4da0-886d-c16d8e6f6b0e" name="Changes" comment="Se implementó la impresión inicial del tablero.">
-      <change afterPath="$PROJECT_DIR$/src/Partida.java" afterDir="false" />
+    <list default="true" id="64226856-4554-4da0-886d-c16d8e6f6b0e" name="Changes" comment="Se implementó la clase Partida.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Alfil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Alfil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Caballo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Caballo.java" afterDir="false" />
@@ -36,18 +35,22 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectId" id="2G8bboRPbKAODeVCtiLul6oteDh" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -64,7 +67,14 @@
       <option name="project" value="LOCAL" />
       <updated>1665977973834</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Se implementó la clase Partida.">
+      <created>1666021405021</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1666021405021</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -80,6 +90,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Se implementó la impresión inicial del tablero." />
-    <option name="LAST_COMMIT_MESSAGE" value="Se implementó la impresión inicial del tablero." />
+    <MESSAGE value="Se implementó la clase Partida." />
+    <option name="LAST_COMMIT_MESSAGE" value="Se implementó la clase Partida." />
   </component>
 </project>
