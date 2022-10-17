@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="64226856-4554-4da0-886d-c16d8e6f6b0e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Alfil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Caballo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Casilla.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Menu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Peon.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Pieza.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Reina.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Rey.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Tablero.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Torre.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="64226856-4554-4da0-886d-c16d8e6f6b0e" name="Changes" comment="Se implementó la impresión inicial del tablero.">
+      <change afterPath="$PROJECT_DIR$/src/Partida.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Alfil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Alfil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Caballo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Caballo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Peon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Peon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pieza.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pieza.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Reina.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Reina.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Rey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Rey.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Tablero.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tablero.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Torre.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Torre.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,6 +57,14 @@
       <option name="presentableId" value="Default" />
       <updated>1665773234049</updated>
     </task>
+    <task id="LOCAL-00001" summary="Se implementó la impresión inicial del tablero.">
+      <created>1665977973834</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1665977973834</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -72,5 +77,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Se implementó la impresión inicial del tablero." />
+    <option name="LAST_COMMIT_MESSAGE" value="Se implementó la impresión inicial del tablero." />
   </component>
 </project>

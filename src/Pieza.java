@@ -6,6 +6,10 @@ public class Pieza {
     protected String valor;
     //Variable para el formato de impresión de las piezas
     protected String formato;
+    /*Variable para determinar el color/jugador que controla la pieza
+    True = Negro / Falso = Blanco
+     */
+    protected boolean color;
 
     public Pieza(){
         valor = simbolos[0];
