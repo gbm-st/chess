@@ -23,14 +23,22 @@ public class Pieza {
     protected String valor;
     //Variable para el formato de impresión de las piezas
     protected String formato;
-    /*Variable para determinar el color/jugador que controla la pieza
-    True = Negro / Falso = Blanco
-     */
-    protected boolean color;
 
-    public Pieza(String valor){
-        this.valor = valor;
+    /*Variable para determinar el color/jugador que controla la pieza
+    0 = vacio, 1 = blanco, 2 = negro
+     */
+    protected int color;
+
+    public Pieza(int simbolo, int color){
+        this.valor = Pieza.simbolos[simbolo];
         formato = "[ " + valor + " ]";
+        this.color = color;
+    }
+
+
+    // true == Blanco, false == Negro
+    private void setColor(boolean color){
+
     }
 
     public String getFormato() {
@@ -39,5 +47,9 @@ public class Pieza {
 
     public String getValor(){
         return valor;
+    }
+
+    public String toString(){
+        return getValor();
     }
 }

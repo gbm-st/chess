@@ -1,8 +1,5 @@
 public class Alfil extends Pieza{
-    public Alfil(boolean color){
-        super(Pieza.simbolos[4]);
-    }
-    public Alfil(){
-        super(Pieza.simbolos[10]);
+    public Alfil(int simbolo, int color){
+        super(simbolo, color);
     }
 }
