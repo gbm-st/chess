@@ -21,20 +21,44 @@ public class Alfil extends Pieza{
         try {
             while (temporalAlfil != piezas[nuevaPosicionX][nuevaPosicionY]) {
                 if ((posicionPiezaX - nuevaPosicionX > 0) && (posicionPiezaY - nuevaPosicionY > 0)
-                        && piezas[posicionPiezaX - 1][posicionPiezaY - 1].color == 0) {
+                        && (piezas[posicionPiezaX - 1][posicionPiezaY - 1].color == 0
+                        || piezas[posicionPiezaX - 1][posicionPiezaY - 1].color != turno)) {
                     temporalAlfil = piezas[posicionPiezaX -= 1][posicionPiezaY -= 1];
+                    if ((temporalAlfil.color != turno && temporalAlfil.color != 0) && temporalAlfil != piezas[nuevaPosicionX][nuevaPosicionY])
+                    {
+                        System.out.println("Esta pieza no puede seguir este camino porque está siendo bloqueada.");
+                        return true;
+                    }
                 }
                 if ((posicionPiezaX - nuevaPosicionX < 0) && (posicionPiezaY - nuevaPosicionY < 0)
-                        && piezas[posicionPiezaX + 1][posicionPiezaY + 1].color == 0) {
+                        && (piezas[posicionPiezaX + 1][posicionPiezaY + 1].color == 0
+                        || piezas[posicionPiezaX + 1][posicionPiezaY + 1].color != turno)) {
                     temporalAlfil = piezas[posicionPiezaX += 1][posicionPiezaY += 1];
+                    if ((temporalAlfil.color != turno && temporalAlfil.color != 0) && temporalAlfil != piezas[nuevaPosicionX][nuevaPosicionY])
+                    {
+                        System.out.println("Esta pieza no puede seguir este camino porque está siendo bloqueada.");
+                        return true;
+                    }
                 }
                 if ((posicionPiezaX - nuevaPosicionX > 0) && (posicionPiezaY - nuevaPosicionY < 0)
-                        && piezas[posicionPiezaX - 1][posicionPiezaY + 1].color == 0) {
+                        && (piezas[posicionPiezaX - 1][posicionPiezaY + 1].color == 0
+                        || piezas[posicionPiezaX - 1][posicionPiezaY + 1].color != turno)) {
                     temporalAlfil = piezas[posicionPiezaX -= 1][posicionPiezaY += 1];
+                    if ((temporalAlfil.color != turno && temporalAlfil.color != 0) && temporalAlfil != piezas[nuevaPosicionX][nuevaPosicionY])
+                    {
+                        System.out.println("Esta pieza no puede seguir este camino porque está siendo bloqueada.");
+                        return true;
+                    }
                 }
                 if ((posicionPiezaX - nuevaPosicionX < 0) && (posicionPiezaY - nuevaPosicionY > 0)
-                        && piezas[posicionPiezaX + 1][posicionPiezaY - 1].color == 0) {
+                        && (piezas[posicionPiezaX + 1][posicionPiezaY - 1].color == 0
+                        || piezas[posicionPiezaX + 1][posicionPiezaY - 1].color != turno)) {
                     temporalAlfil = piezas[posicionPiezaX += 1][posicionPiezaY -= 1];
+                    if ((temporalAlfil.color != turno && temporalAlfil.color != 0) && temporalAlfil != piezas[nuevaPosicionX][nuevaPosicionY])
+                    {
+                        System.out.println("Esta pieza no puede seguir este camino porque está siendo bloqueada.");
+                        return true;
+                    }
                 }
                 if (posicionPiezaX == nuevaPosicionX && posicionPiezaY != nuevaPosicionY
                         || posicionPiezaX != nuevaPosicionX && posicionPiezaY == nuevaPosicionY)
