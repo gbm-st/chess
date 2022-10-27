@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Peon extends Pieza {
     boolean primerMovimiento = true;
     public Peon(int simbolo, int color)
@@ -6,7 +8,7 @@ public class Peon extends Pieza {
     }
 
     public boolean moverANuevaPosicion (int turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX,
-                                        int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal)
+                                        int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal, ArrayList<String> piezasMuertas)
     {
         if (primerMovimiento)
         {
@@ -28,6 +30,8 @@ public class Peon extends Pieza {
                         && piezas[nuevaPosicionX][nuevaPosicionY].color == 2)
                 {
                     piezas[nuevaPosicionX][nuevaPosicionY]=this;
+                    piezasMuertas.add(variableNuevaPosicionTemporal.valor);
+                    resetearPieza(variableNuevaPosicionTemporal);
                     piezas[posicionPiezaX][posicionPiezaY]=variableNuevaPosicionTemporal;
 
                     primerMovimiento = false;
@@ -52,6 +56,8 @@ public class Peon extends Pieza {
                         && piezas[nuevaPosicionX][nuevaPosicionY].color == 1)
                 {
                     piezas[nuevaPosicionX][nuevaPosicionY]=this;
+                    piezasMuertas.add(variableNuevaPosicionTemporal.valor);
+                    resetearPieza(variableNuevaPosicionTemporal);
                     piezas[posicionPiezaX][posicionPiezaY]=variableNuevaPosicionTemporal;
 
                     primerMovimiento = false;
@@ -77,6 +83,8 @@ public class Peon extends Pieza {
                         && piezas[nuevaPosicionX][nuevaPosicionY].color == 2)
                 {
                     piezas[nuevaPosicionX][nuevaPosicionY]=this;
+                    piezasMuertas.add(variableNuevaPosicionTemporal.valor);
+                    resetearPieza(variableNuevaPosicionTemporal);
                     piezas[posicionPiezaX][posicionPiezaY]=variableNuevaPosicionTemporal;
                     return false;
                 }
@@ -97,6 +105,8 @@ public class Peon extends Pieza {
                         && piezas[nuevaPosicionX][nuevaPosicionY].color == 1)
                 {
                     piezas[nuevaPosicionX][nuevaPosicionY]=this;
+                    piezasMuertas.add(variableNuevaPosicionTemporal.valor);
+                    resetearPieza(variableNuevaPosicionTemporal);
                     piezas[posicionPiezaX][posicionPiezaY]=variableNuevaPosicionTemporal;
                     return false;
                 }

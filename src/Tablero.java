@@ -1,8 +1,12 @@
+import java.util.ArrayList;
+
 public class Tablero {
     //Variable para las dimensiones del tablero
     private final int dim;
     //Variable para el arreglo de las piezas
     private final Pieza[][] piezas;
+
+    private ArrayList<String> piezasMuertas = new ArrayList<String>();
     //Variable para la leyenda del eje X
     private final String[] ejeX = {"( A )", "( B )", "( C )", "( D )",
             "( E )", "( F )", "( G )", "( H )"};
@@ -101,7 +105,7 @@ public class Tablero {
         // no puedes ir adelante como alfil o diagonal como torre, etc.)
 
         boolean valorEjecucion = variablePiezaTemporal.moverANuevaPosicion(turno, posicionPiezaX, posicionPiezaY, nuevaPosicionX,
-                nuevaPosicionY, piezas, variableNuevaPosicionTemporal);
+                nuevaPosicionY, piezas, variableNuevaPosicionTemporal, piezasMuertas);
 
         /*if (!valorEjecucion)
         {

@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Reina extends Pieza{
     public Reina(int simbolo, int color)
     {
@@ -5,7 +7,7 @@ public class Reina extends Pieza{
     }
 
     public boolean moverANuevaPosicion (int turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX,
-                                        int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal)
+                                        int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal, ArrayList<String> piezasMuertas)
     {
         piezas[nuevaPosicionX][nuevaPosicionY]=this;
         piezas[posicionPiezaX][posicionPiezaY]=variableNuevaPosicionTemporal;

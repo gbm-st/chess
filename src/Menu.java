@@ -1,5 +1,7 @@
 import java.util.Scanner;
 
+import static java.lang.Character.toLowerCase;
+
 public class Menu {
     //Clase que manejará el inicio y final del juego secuencialmente
     public Menu(){
@@ -11,6 +13,8 @@ public class Menu {
         int posicionPiezaY;
         int nuevaPosicionX;
         int nuevaPosicionY;
+        char posicionLetraY;
+        char nuevaPosicionLetraY;
 
         Scanner scanner = new Scanner(System.in);
 
@@ -20,14 +24,25 @@ public class Menu {
             variableTemporal += 1;
 
             // Hace falta poner try catch para validar
-            System.out.print("Elije las coordenadas X (en numeros naturales) para elegir una pieza: ");
+            System.out.print("Elije las coordenadas X  para elegir una pieza: ");
             posicionPiezaX = scanner.nextInt();
-            System.out.print("Elije las coordenadas Y (en numeros naturales) para elegir una pieza: ");
-            posicionPiezaY = scanner.nextInt();
-            System.out.print("Elije las coordenadas X (en numeros naturales) para mover una pieza: ");
+            System.out.print("Elije las coordenadas Y para elegir una pieza: ");
+            posicionLetraY = scanner.next().charAt(0);
+            System.out.print("Elije las coordenadas X para mover a una posicion una pieza: ");
             nuevaPosicionX = scanner.nextInt();
-            System.out.print("Elije las coordenadas Y (en numeros naturales) para mover una pieza: ");
-            nuevaPosicionY = scanner.nextInt();
+            System.out.print("Elije las coordenadas Y para mover a una posicion una pieza: ");
+            nuevaPosicionLetraY = scanner.next().charAt(0);
+
+            posicionPiezaX = 8 - posicionPiezaX;
+            nuevaPosicionX = 8 - nuevaPosicionX;
+
+            posicionPiezaY = toLowerCase(posicionLetraY) - 'a';
+            nuevaPosicionY = toLowerCase(nuevaPosicionLetraY) - 'a';
+
+//            System.out.println(posicionPiezaX);
+//            System.out.println(posicionPiezaY);
+//            System.out.println(nuevaPosicionX);
+//            System.out.println(nuevaPosicionY);
 
             partida.cambiarTurno(posicionPiezaX, posicionPiezaY, nuevaPosicionX, nuevaPosicionY);
 

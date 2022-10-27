@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Pieza {
     //Definición de los valores unicode para cada una de las piezas del juego
     /*
@@ -35,10 +37,11 @@ public class Pieza {
         this.color = color;
     }
 
-
-    // true == Blanco, false == Negro
-    private void setColor(boolean color){
-
+    public void resetearPieza(Pieza pieza)
+    {
+        pieza.valor = Pieza.simbolos[0];
+        pieza.formato = "[ " + pieza.valor + " ]";
+        pieza.color = 0;
     }
 
     public String getFormato() {
@@ -77,7 +80,7 @@ public class Pieza {
     }
 
     public boolean moverANuevaPosicion(int turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX,
-                                       int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal) {
+                                       int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal, ArrayList<String> piezasMuertas) {
         return true;
     }
 }
