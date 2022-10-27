@@ -90,24 +90,9 @@ public class Tablero {
 
         Pieza variablePiezaTemporal = piezas[posicionPiezaX][posicionPiezaY];
         Pieza variableNuevaPosicionTemporal = piezas[nuevaPosicionX][nuevaPosicionY];
-        System.out.println(variablePiezaTemporal.toString());
-        System.out.println(variableNuevaPosicionTemporal.toString());
 
-        // Validar que no elija vacio o color contrario, validar que se coma al color contrario
-        // Validar que no se coma a pieza con el mismo color
-        // Validar condicion de exito para un color (pendiente)
-
-        if (variablePiezaTemporal.color == 0) {
-            System.out.println("No puedes mover espacios vacios.");
-            return true;
-        }
-        if ((variablePiezaTemporal.color == 1 && turno == 2) || (variablePiezaTemporal.color == 2 && turno == 1)) {
-            System.out.println("No puedes mover una pieza de color distinto al tuyo.");
-            return true;
-        }
-        if ((variablePiezaTemporal.color == 1 && variableNuevaPosicionTemporal.color == 1) ||
-            (variablePiezaTemporal.color == 2 && variableNuevaPosicionTemporal.color == 2)) {
-            System.out.println("No puedes comerte a una pieza del mismo color.");
+        if(variablePiezaTemporal.validacionBasica(turno, variableNuevaPosicionTemporal))
+        {
             return true;
         }
 
@@ -115,11 +100,18 @@ public class Tablero {
         // verificar que las reglas se cumplan (ej. no te puedes saltar piezas excepto caballo,
         // no puedes ir adelante como alfil o diagonal como torre, etc.)
 
-        piezas[nuevaPosicionX][nuevaPosicionY]=variablePiezaTemporal;
-        piezas[posicionPiezaX][posicionPiezaY]=variableNuevaPosicionTemporal;
+        boolean valorEjecucion = variablePiezaTemporal.moverANuevaPosicion(turno, posicionPiezaX, posicionPiezaY, nuevaPosicionX,
+                nuevaPosicionY, piezas, variableNuevaPosicionTemporal);
+
+        /*if (!valorEjecucion)
+        {
+            imprimirTablero();
+        }*/
+
         imprimirTablero();
 
-        return false;
+
+        return valorEjecucion;
 
     }
 }
