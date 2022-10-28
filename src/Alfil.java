@@ -26,7 +26,7 @@ public class Alfil extends Pieza{
                     temporalAlfil = piezas[posicionPiezaX -= 1][posicionPiezaY -= 1];
                     if ((temporalAlfil.color != turno && temporalAlfil.color != 0) && temporalAlfil != piezas[nuevaPosicionX][nuevaPosicionY])
                     {
-                        System.out.println("Esta pieza no puede seguir este camino porque está siendo bloqueada.");
+                        System.out.println("Este alfil no puede seguir este camino porque está siendo bloqueada por una pieza enemiga.");
                         return true;
                     }
                 }
@@ -36,7 +36,7 @@ public class Alfil extends Pieza{
                     temporalAlfil = piezas[posicionPiezaX += 1][posicionPiezaY += 1];
                     if ((temporalAlfil.color != turno && temporalAlfil.color != 0) && temporalAlfil != piezas[nuevaPosicionX][nuevaPosicionY])
                     {
-                        System.out.println("Esta pieza no puede seguir este camino porque está siendo bloqueada.");
+                        System.out.println("Este alfil no puede seguir este camino porque está siendo bloqueada por una pieza enemiga.");
                         return true;
                     }
                 }
@@ -46,7 +46,7 @@ public class Alfil extends Pieza{
                     temporalAlfil = piezas[posicionPiezaX -= 1][posicionPiezaY += 1];
                     if ((temporalAlfil.color != turno && temporalAlfil.color != 0) && temporalAlfil != piezas[nuevaPosicionX][nuevaPosicionY])
                     {
-                        System.out.println("Esta pieza no puede seguir este camino porque está siendo bloqueada.");
+                        System.out.println("Este alfil no puede seguir este camino porque está siendo bloqueada por una pieza enemiga.");
                         return true;
                     }
                 }
@@ -56,7 +56,7 @@ public class Alfil extends Pieza{
                     temporalAlfil = piezas[posicionPiezaX += 1][posicionPiezaY -= 1];
                     if ((temporalAlfil.color != turno && temporalAlfil.color != 0) && temporalAlfil != piezas[nuevaPosicionX][nuevaPosicionY])
                     {
-                        System.out.println("Esta pieza no puede seguir este camino porque está siendo bloqueada.");
+                        System.out.println("Este alfil no puede seguir este camino porque está siendo bloqueada por una pieza enemiga.");
                         return true;
                     }
                 }
@@ -66,11 +66,16 @@ public class Alfil extends Pieza{
                     // Es para evitar que no entre en los otros if y forme un bucle
                     break;
                 }
+                if (temporalAlfil.color == turno && temporalAlfil != piezas[nuevaPosicionX][nuevaPosicionY])
+                {
+                    System.out.println("Este alfil no puede seguir este camino porque está siendo bloqueada por una pieza aliada.");
+                    return true;
+                }
             }
         }
         catch (ArrayIndexOutOfBoundsException e)
         {
-            System.out.println("El objetivo no es alcanzable para el alfil.");
+            System.out.println("El objetivo no es alcanzable para el alfil. (out of bounds)");
             return true;
         }
 
