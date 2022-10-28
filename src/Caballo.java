@@ -11,6 +11,7 @@ public class Caballo extends Pieza {
     {
         piezas[nuevaPosicionX][nuevaPosicionY]=this;
         piezas[posicionPiezaX][posicionPiezaY]=variableNuevaPosicionTemporal;
+        System.out.println("tronco");
         return true;
     }
 }
