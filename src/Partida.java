@@ -10,36 +10,29 @@ public class Partida {
 
     public void iniciarPartida()
     {
-        System.out.println("Blanco");
         this.tablero = new Tablero();
+        System.out.println("Turno Blanco");
     }
 
     public void cambiarTurno(int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX, int nuevaPosicionY)
     {
-        /*if (turno == 1)
-        {
-            System.out.println("Blanco");
-        } else if (turno == 2) {
-            System.out.println("Negro");
-        }*/
-
         // Si se cometió un error, cancela el turno y el jugador vuelve a repetir.
         if (tablero.moverPieza(turno, posicionPiezaX, posicionPiezaY, nuevaPosicionX, nuevaPosicionY))
         {
             if(turno == 1)
-                System.out.println("Blanco");
+                System.out.println("Turno Blanco");
             if(turno == 2)
-                System.out.println("Negro");
+                System.out.println("Turno Negro");
             return;
-        }
+        } // Se cambia de color/turno
         if (turno == 1)
         {
-            System.out.println("Negro");
             turno = 2;
+            System.out.println("Turno Negro");
         } else if (turno == 2)
         {
-            System.out.println("Blanco");
             turno = 1;
+            System.out.println("Turno Blanco");
         }
     }
 

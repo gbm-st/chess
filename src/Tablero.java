@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 
 public class Tablero {
-    //Variable para las dimensiones del tablero
-    private final int dim;
     //Variable para el arreglo de las piezas
     private final Pieza[][] piezas;
 
@@ -14,8 +12,7 @@ public class Tablero {
     private final String[] ejeY = {"8", "7", "6", "5", "4", "3", "2", "1"};
 
     public Tablero() {
-        dim = 8;
-        piezas = new Pieza[dim][dim];
+        piezas = new Pieza[8][8];
 
         inicializarTablero();
         imprimirTablero();
@@ -23,9 +20,9 @@ public class Tablero {
 
     //Método para imprimir el Tablero
     public void imprimirTablero() {
-        for (int x = 0; x < dim; x++) {
+        for (int x = 0; x < 8; x++) {
             System.out.print("\n" + ejeY[x] + "\t");
-            for (int y = 0; y < dim; y++) {
+            for (int y = 0; y < 8; y++) {
                 String valor = piezas[x][y].getValor();
                 String formato = piezas[x][y].getFormato();
                 System.out.print(formato + "\t");
@@ -34,7 +31,7 @@ public class Tablero {
         System.out.println("");
         System.out.print("\t");
 
-        for (int x = 0; x < dim; x++) {
+        for (int x = 0; x < 8; x++) {
             System.out.print(ejeX[x] + "\t");
         }
         System.out.println();
@@ -54,20 +51,20 @@ public class Tablero {
         piezas[0][7] = new Torre( 9, 2);
 
         //Piezas de la fila 7
-        for(int x = 0; x < dim; x++) {
+        for(int x = 0; x < 8; x++) {
             piezas[1][x] = new Peon(12, 2);
         }
 
         //Espacios vacíos
-        for(int x = 2; x < dim-2; x++){
-            for(int y = 0; y < dim; y++){
+        for(int x = 2; x < 6; x++){
+            for(int y = 0; y < 8; y++){
                 piezas[x][y] = new Pieza(0, 0);
             }
         }
 
         //*************BLANCOS*****************
         //Piezas de la fila 2
-        for(int x = 0; x < dim; x++) {
+        for(int x = 0; x < 8; x++) {
             piezas[6][x] = new Peon(6, 1);
         }
 
@@ -107,13 +104,7 @@ public class Tablero {
         boolean valorEjecucion = variablePiezaTemporal.moverANuevaPosicion(turno, posicionPiezaX, posicionPiezaY, nuevaPosicionX,
                 nuevaPosicionY, piezas, variableNuevaPosicionTemporal, piezasMuertas);
 
-        /*if (!valorEjecucion)
-        {
-            imprimirTablero();
-        }*/
-
         imprimirTablero();
-
 
         return valorEjecucion;
 

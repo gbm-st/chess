@@ -13,8 +13,6 @@ public class Menu {
         int posicionPiezaY;
         int nuevaPosicionX;
         int nuevaPosicionY;
-        char posicionLetraY;
-        char nuevaPosicionLetraY;
 
         Scanner scanner = new Scanner(System.in);
 
@@ -25,28 +23,17 @@ public class Menu {
 
             // Hace falta poner try catch para validar
             System.out.print("Elije las coordenadas X  para elegir una pieza: ");
-            posicionPiezaX = scanner.nextInt();
+            posicionPiezaX = 8 - scanner.nextInt();
             System.out.print("Elije las coordenadas Y para elegir una pieza: ");
-            posicionLetraY = scanner.next().charAt(0);
+            posicionPiezaY = toLowerCase(scanner.next().charAt(0)) - 'a';
             System.out.print("Elije las coordenadas X para mover a una posicion una pieza: ");
-            nuevaPosicionX = scanner.nextInt();
+            nuevaPosicionX = 8 - scanner.nextInt();
             System.out.print("Elije las coordenadas Y para mover a una posicion una pieza: ");
-            nuevaPosicionLetraY = scanner.next().charAt(0);
-
-            posicionPiezaX = 8 - posicionPiezaX;
-            nuevaPosicionX = 8 - nuevaPosicionX;
-
-            posicionPiezaY = toLowerCase(posicionLetraY) - 'a';
-            nuevaPosicionY = toLowerCase(nuevaPosicionLetraY) - 'a';
-
-//            System.out.println(posicionPiezaX);
-//            System.out.println(posicionPiezaY);
-//            System.out.println(nuevaPosicionX);
-//            System.out.println(nuevaPosicionY);
+            nuevaPosicionY = toLowerCase(scanner.next().charAt(0)) - 'a';
 
             partida.cambiarTurno(posicionPiezaX, posicionPiezaY, nuevaPosicionX, nuevaPosicionY);
 
-            if (variableTemporal == 20)
+            if (variableTemporal == 30)
             {
                 break;
             }

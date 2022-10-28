@@ -79,6 +79,7 @@ public class Pieza {
         return false;
     }
 
+    // Método base para realizar polimorfismo.
     public boolean moverANuevaPosicion(int turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX,
                                        int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal, ArrayList<String> piezasMuertas) {
         return true;
