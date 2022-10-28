@@ -64,24 +64,24 @@ public class Pieza {
 
         if (this.color == 0) {
             System.out.println("No puedes mover espacios vacios.");
-            return true;
+            return false;
         }
         if ((this.color == 1 && turno == 2) || (this.color == 2 && turno == 1)) {
             System.out.println("No puedes mover una pieza de color distinto al tuyo.");
-            return true;
+            return false;
         }
         if ((this.color == 1 && variableNuevaPosicionTemporal.color == 1) ||
                 (this.color == 2 && variableNuevaPosicionTemporal.color == 2)) {
             System.out.println("No puedes comerte a una pieza del mismo color.");
-            return true;
+            return false;
         }
 
-        return false;
+        return true;
     }
 
     // Método base para realizar polimorfismo.
     public boolean moverANuevaPosicion(int turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX,
                                        int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal, ArrayList<String> piezasMuertas) {
-        return true;
+        return false;
     }
 }

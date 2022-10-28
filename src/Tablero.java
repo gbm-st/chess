@@ -92,9 +92,9 @@ public class Tablero {
         Pieza variablePiezaTemporal = piezas[posicionPiezaX][posicionPiezaY];
         Pieza variableNuevaPosicionTemporal = piezas[nuevaPosicionX][nuevaPosicionY];
 
-        if(variablePiezaTemporal.validacionBasica(turno, variableNuevaPosicionTemporal))
+        if(!(variablePiezaTemporal.validacionBasica(turno, variableNuevaPosicionTemporal)))
         {
-            return true;
+            return false;
         }
 
         // Mandar a llamar el método que contenga las reglas de la pieza y

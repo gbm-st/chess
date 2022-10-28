@@ -26,7 +26,7 @@ public class Torre extends Pieza{
                         || ((posicionPiezaX - nuevaPosicionX > 0) && (posicionPiezaY - nuevaPosicionY < 0)))
                 {
                     System.out.println("Las torres no se pueden mover diagonalmente.");
-                    return true;
+                    return false;
                 }
                 if ((posicionPiezaX - nuevaPosicionX > 0) && (posicionPiezaY - nuevaPosicionY == 0)
                         && (piezas[posicionPiezaX - 1][posicionPiezaY].color == 0
@@ -35,7 +35,7 @@ public class Torre extends Pieza{
                     if ((temporalTorre.color != turno && temporalTorre.color != 0) && temporalTorre != piezas[nuevaPosicionX][nuevaPosicionY])
                     {
                         System.out.println("Esta torre no puede seguir este camino porque está siendo bloqueada por una pieza enemiga.");
-                        return true;
+                        return false;
                     }
                 }
                 if ((posicionPiezaX - nuevaPosicionX < 0) && (posicionPiezaY - nuevaPosicionY == 0)
@@ -45,7 +45,7 @@ public class Torre extends Pieza{
                     if ((temporalTorre.color != turno && temporalTorre.color != 0) && temporalTorre != piezas[nuevaPosicionX][nuevaPosicionY])
                     {
                         System.out.println("Esta torre no puede seguir este camino porque está siendo bloqueada por una pieza enemiga.");
-                        return true;
+                        return false;
                     }
                 }
                 if ((posicionPiezaX - nuevaPosicionX == 0) && (posicionPiezaY - nuevaPosicionY < 0)
@@ -55,7 +55,7 @@ public class Torre extends Pieza{
                     if ((temporalTorre.color != turno && temporalTorre.color != 0) && temporalTorre != piezas[nuevaPosicionX][nuevaPosicionY])
                     {
                         System.out.println("Esta torre no puede seguir este camino porque está siendo bloqueada por una pieza enemiga.");
-                        return true;
+                        return false;
                     }
                 }
                 if ((posicionPiezaX - nuevaPosicionX == 0) && (posicionPiezaY - nuevaPosicionY > 0)
@@ -65,7 +65,7 @@ public class Torre extends Pieza{
                     if ((temporalTorre.color != turno && temporalTorre.color != 0) && temporalTorre != piezas[nuevaPosicionX][nuevaPosicionY])
                     {
                         System.out.println("Esta torre no puede seguir este camino porque está siendo bloqueada por una pieza enemiga.");
-                        return true;
+                        return false;
                     }
                 }
 //                if ((posicionPiezaX == nuevaPosicionX || posicionPiezaY != nuevaPosicionY)
@@ -77,14 +77,14 @@ public class Torre extends Pieza{
                 if (temporalTorre.color == turno && temporalTorre != piezas[nuevaPosicionX][nuevaPosicionY])
                 {
                     System.out.println("Esta torre no puede seguir este camino porque está siendo bloqueada por una pieza aliada.");
-                    return true;
+                    return false;
                 }
             }
         }
         catch (ArrayIndexOutOfBoundsException e)
         {
             System.out.println("El objetivo no es alcanzable para la torre. (out of bounds)");
-            return true;
+            return false;
         }
 
         if (piezas[posicionPiezaX][posicionPiezaY] == piezas[nuevaPosicionX][nuevaPosicionY])
@@ -93,11 +93,11 @@ public class Torre extends Pieza{
             piezasMuertas.add(variableNuevaPosicionTemporal.valor);
             resetearPieza(variableNuevaPosicionTemporal);
             piezas[posicionOriginalX][posicionOriginalY]=variableNuevaPosicionTemporal;
-            return false;
+            return true;
         }
 
         System.out.println("El objetivo no es alcanzable para la torre.");
 
-        return true;
+        return false;
     }
 }

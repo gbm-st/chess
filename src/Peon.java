@@ -22,7 +22,7 @@ public class Peon extends Pieza {
                     piezas[posicionPiezaX][posicionPiezaY]=variableNuevaPosicionTemporal;
 
                     primerMovimiento = false;
-                    return false;
+                    return true;
                 }
                 else if ((nuevaPosicionX - posicionPiezaX) > -3
                         && (posicionPiezaY - nuevaPosicionY <= 1 || posicionPiezaY - nuevaPosicionY >= -1)
@@ -35,7 +35,7 @@ public class Peon extends Pieza {
                     piezas[posicionPiezaX][posicionPiezaY]=variableNuevaPosicionTemporal;
 
                     primerMovimiento = false;
-                    return false;
+                    return true;
                 }
             }
             else if (turno == 2)
@@ -48,7 +48,7 @@ public class Peon extends Pieza {
                     piezas[posicionPiezaX][posicionPiezaY]=variableNuevaPosicionTemporal;
 
                     primerMovimiento = false;
-                    return false;
+                    return true;
                 }
                 else if ((nuevaPosicionX - posicionPiezaX) < 3
                         && (posicionPiezaY - nuevaPosicionY <= 1 || posicionPiezaY - nuevaPosicionY >= -1)
@@ -61,7 +61,7 @@ public class Peon extends Pieza {
                     piezas[posicionPiezaX][posicionPiezaY]=variableNuevaPosicionTemporal;
 
                     primerMovimiento = false;
-                    return false;
+                    return true;
                 }
             }
         }
@@ -75,7 +75,7 @@ public class Peon extends Pieza {
                 {
                     piezas[nuevaPosicionX][nuevaPosicionY]=this;
                     piezas[posicionPiezaX][posicionPiezaY]=variableNuevaPosicionTemporal;
-                    return false;
+                    return true;
                 }
                 else if ((nuevaPosicionX - posicionPiezaX) > -2
                         && (posicionPiezaY - nuevaPosicionY <= 1 || posicionPiezaY - nuevaPosicionY >= -1)
@@ -86,7 +86,7 @@ public class Peon extends Pieza {
                     piezasMuertas.add(variableNuevaPosicionTemporal.valor);
                     resetearPieza(variableNuevaPosicionTemporal);
                     piezas[posicionPiezaX][posicionPiezaY]=variableNuevaPosicionTemporal;
-                    return false;
+                    return true;
                 }
             }
             else if (turno == 2)
@@ -97,7 +97,7 @@ public class Peon extends Pieza {
                 {
                     piezas[nuevaPosicionX][nuevaPosicionY]=this;
                     piezas[posicionPiezaX][posicionPiezaY]=variableNuevaPosicionTemporal;
-                    return false;
+                    return true;
                 }
                 else if ((nuevaPosicionX - posicionPiezaX) < 2
                         && (posicionPiezaY - nuevaPosicionY <= 1 || posicionPiezaY - nuevaPosicionY >= -1)
@@ -108,12 +108,12 @@ public class Peon extends Pieza {
                     piezasMuertas.add(variableNuevaPosicionTemporal.valor);
                     resetearPieza(variableNuevaPosicionTemporal);
                     piezas[posicionPiezaX][posicionPiezaY]=variableNuevaPosicionTemporal;
-                    return false;
+                    return true;
                 }
             }
         }
 
-        System.out.println("No se pudo mover el peón a esta posición.");
-        return true;
+        System.out.println("No se puede mover el peón a esta posición.");
+        return false;
     }
 }
