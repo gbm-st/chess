@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class Reina extends Pieza{
+    public int no;
     public Reina(int simbolo, int color)
     {
         super(simbolo, color);
