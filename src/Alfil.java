@@ -37,6 +37,7 @@ public class Alfil extends Pieza{
                         return false;
                     }
                 }
+                // Arriba derecha
                 if ((posicionPiezaX - nuevaPosicionX > 0) && (posicionPiezaY - nuevaPosicionY < 0)
                         && (piezas[posicionPiezaX - 1][posicionPiezaY + 1].color == 0
                         || piezas[posicionPiezaX - 1][posicionPiezaY + 1].color != turno)) {
@@ -47,6 +48,7 @@ public class Alfil extends Pieza{
                         return false;
                     }
                 }
+                // Abajo Izquierda
                 if ((posicionPiezaX - nuevaPosicionX < 0) && (posicionPiezaY - nuevaPosicionY > 0)
                         && (piezas[posicionPiezaX + 1][posicionPiezaY - 1].color == 0
                         || piezas[posicionPiezaX + 1][posicionPiezaY - 1].color != turno)) {

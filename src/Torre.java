@@ -28,6 +28,7 @@ public class Torre extends Pieza{
                     System.out.println("Las torres no se pueden mover diagonalmente.");
                     return false;
                 }
+                // Arriba
                 if ((posicionPiezaX - nuevaPosicionX > 0) && (posicionPiezaY - nuevaPosicionY == 0)
                         && (piezas[posicionPiezaX - 1][posicionPiezaY].color == 0
                         || piezas[posicionPiezaX - 1][posicionPiezaY].color != turno)) {
@@ -38,6 +39,7 @@ public class Torre extends Pieza{
                         return false;
                     }
                 }
+                // Abajo
                 if ((posicionPiezaX - nuevaPosicionX < 0) && (posicionPiezaY - nuevaPosicionY == 0)
                         && (piezas[posicionPiezaX + 1][posicionPiezaY].color == 0
                         || piezas[posicionPiezaX + 1][posicionPiezaY].color != turno)) {
@@ -48,6 +50,7 @@ public class Torre extends Pieza{
                         return false;
                     }
                 }
+                // Derecha
                 if ((posicionPiezaX - nuevaPosicionX == 0) && (posicionPiezaY - nuevaPosicionY < 0)
                         && (piezas[posicionPiezaX][posicionPiezaY + 1].color == 0
                         || piezas[posicionPiezaX][posicionPiezaY + 1].color != turno)) {
@@ -58,6 +61,7 @@ public class Torre extends Pieza{
                         return false;
                     }
                 }
+                // Izquierda
                 if ((posicionPiezaX - nuevaPosicionX == 0) && (posicionPiezaY - nuevaPosicionY > 0)
                         && (piezas[posicionPiezaX][posicionPiezaY - 1].color == 0
                         || piezas[posicionPiezaX][posicionPiezaY - 1].color != turno)) {
