@@ -1,8 +1,16 @@
+import java.util.ArrayList;
+
 public class Reina extends Pieza{
-    public Reina(boolean color){
-        super(Pieza.simbolos[2]);
+    public Reina(int simbolo, int color)
+    {
+        super(simbolo, color);
     }
-    public Reina(){
-        super(Pieza.simbolos[8]);
+
+    public boolean moverANuevaPosicion (int turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX,
+                                        int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal, ArrayList<String> piezasMuertas)
+    {
+        piezas[nuevaPosicionX][nuevaPosicionY]=this;
+        piezas[posicionPiezaX][posicionPiezaY]=variableNuevaPosicionTemporal;
+        return true;
     }
 }

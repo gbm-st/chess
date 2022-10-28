@@ -1,9 +1,16 @@
+import java.util.ArrayList;
+
 public class Caballo extends Pieza {
-    public Caballo(boolean color) {
-        super(Pieza.simbolos[5]);
+    public Caballo(int simbolo, int color)
+    {
+        super(simbolo, color);
     }
 
-    public Caballo() {
-        super(Pieza.simbolos[11]);
+    public boolean moverANuevaPosicion (int turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX,
+                                        int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal, ArrayList<String> piezasMuertas)
+    {
+        piezas[nuevaPosicionX][nuevaPosicionY]=this;
+        piezas[posicionPiezaX][posicionPiezaY]=variableNuevaPosicionTemporal;
+        return true;
     }
 }
