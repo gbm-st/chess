@@ -13,13 +13,9 @@ public class Alfil extends Pieza{
         int posicionOriginalX = posicionPiezaX;
         int posicionOriginalY = posicionPiezaY;
 
-//        System.out.println( posicionPiezaX - nuevaPosicionX );
-//        System.out.println( posicionPiezaY - nuevaPosicionY );
-//        System.out.println(posicionPiezaX+1);
-//        System.out.println(posicionPiezaY-1);
-
         try {
             while (temporalAlfil != piezas[nuevaPosicionX][nuevaPosicionY]) {
+                // Arriba izquierda
                 if ((posicionPiezaX - nuevaPosicionX > 0) && (posicionPiezaY - nuevaPosicionY > 0)
                         && (piezas[posicionPiezaX - 1][posicionPiezaY - 1].color == 0
                         || piezas[posicionPiezaX - 1][posicionPiezaY - 1].color != turno)) {
@@ -30,6 +26,7 @@ public class Alfil extends Pieza{
                         return false;
                     }
                 }
+                // Abajo derecha
                 if ((posicionPiezaX - nuevaPosicionX < 0) && (posicionPiezaY - nuevaPosicionY < 0)
                         && (piezas[posicionPiezaX + 1][posicionPiezaY + 1].color == 0
                         || piezas[posicionPiezaX + 1][posicionPiezaY + 1].color != turno)) {
