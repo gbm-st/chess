@@ -46,7 +46,7 @@ public class Menu {
 
             partida.cambiarTurno(posicionPiezaX, posicionPiezaY, nuevaPosicionX, nuevaPosicionY);
 
-            if (variableTemporal == 10)
+            if (variableTemporal == 20)
             {
                 break;
             }
