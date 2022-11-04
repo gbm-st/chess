@@ -86,7 +86,7 @@ public class Tablero {
                 posicionPiezaX < 0 || posicionPiezaY < 0 || nuevaPosicionX < 0 || nuevaPosicionY < 0)
         {
             System.out.println("No te puedes salir de los limites.");
-            return true;
+            return false;
         }
 
         Pieza variablePiezaTemporal = piezas[posicionPiezaX][posicionPiezaY];
