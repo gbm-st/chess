@@ -33,44 +33,56 @@ public class Torre extends Pieza{
                         && (piezas[posicionPiezaX - 1][posicionPiezaY].color == 0
                         || piezas[posicionPiezaX - 1][posicionPiezaY].color != turno)) {
                     temporalTorre = piezas[posicionPiezaX -= 1][posicionPiezaY];
-                    if ((temporalTorre.color != turno && temporalTorre.color != 0) && temporalTorre != piezas[nuevaPosicionX][nuevaPosicionY])
+                    if (!validarSiPiezaNoEsAlcanzable(turno, temporalTorre, piezas, nuevaPosicionX, nuevaPosicionY))
                     {
-                        System.out.println("Esta torre no puede seguir este camino porque está siendo bloqueada por una pieza enemiga.");
                         return false;
                     }
+                } else if ((posicionPiezaX - nuevaPosicionX > 0) && (posicionPiezaY - nuevaPosicionY == 0)
+                        && (piezas[posicionPiezaX - 1][posicionPiezaY].color == turno)) {
+                    System.out.println("Esta torre no puede seguir este camino porque está siendo bloqueada por una pieza aliada.");
+                    return false;
                 }
                 // Abajo
                 if ((posicionPiezaX - nuevaPosicionX < 0) && (posicionPiezaY - nuevaPosicionY == 0)
                         && (piezas[posicionPiezaX + 1][posicionPiezaY].color == 0
                         || piezas[posicionPiezaX + 1][posicionPiezaY].color != turno)) {
                     temporalTorre = piezas[posicionPiezaX += 1][posicionPiezaY];
-                    if ((temporalTorre.color != turno && temporalTorre.color != 0) && temporalTorre != piezas[nuevaPosicionX][nuevaPosicionY])
+                    if (!validarSiPiezaNoEsAlcanzable(turno, temporalTorre, piezas, nuevaPosicionX, nuevaPosicionY))
                     {
-                        System.out.println("Esta torre no puede seguir este camino porque está siendo bloqueada por una pieza enemiga.");
                         return false;
                     }
+                } else if ((posicionPiezaX - nuevaPosicionX < 0) && (posicionPiezaY - nuevaPosicionY == 0)
+                        && (piezas[posicionPiezaX + 1][posicionPiezaY].color == turno)) {
+                    System.out.println("Esta torre no puede seguir este camino porque está siendo bloqueada por una pieza aliada.");
+                    return false;
                 }
                 // Derecha
                 if ((posicionPiezaX - nuevaPosicionX == 0) && (posicionPiezaY - nuevaPosicionY < 0)
                         && (piezas[posicionPiezaX][posicionPiezaY + 1].color == 0
                         || piezas[posicionPiezaX][posicionPiezaY + 1].color != turno)) {
                     temporalTorre = piezas[posicionPiezaX][posicionPiezaY += 1];
-                    if ((temporalTorre.color != turno && temporalTorre.color != 0) && temporalTorre != piezas[nuevaPosicionX][nuevaPosicionY])
+                    if (!validarSiPiezaNoEsAlcanzable(turno, temporalTorre, piezas, nuevaPosicionX, nuevaPosicionY))
                     {
-                        System.out.println("Esta torre no puede seguir este camino porque está siendo bloqueada por una pieza enemiga.");
                         return false;
                     }
+                } else if ((posicionPiezaX - nuevaPosicionX == 0) && (posicionPiezaY - nuevaPosicionY < 0)
+                        && (piezas[posicionPiezaX][posicionPiezaY + 1].color == turno)) {
+                    System.out.println("Esta torre no puede seguir este camino porque está siendo bloqueada por una pieza aliada.");
+                    return false;
                 }
                 // Izquierda
                 if ((posicionPiezaX - nuevaPosicionX == 0) && (posicionPiezaY - nuevaPosicionY > 0)
                         && (piezas[posicionPiezaX][posicionPiezaY - 1].color == 0
                         || piezas[posicionPiezaX][posicionPiezaY - 1].color != turno)) {
                     temporalTorre = piezas[posicionPiezaX][posicionPiezaY -= 1];
-                    if ((temporalTorre.color != turno && temporalTorre.color != 0) && temporalTorre != piezas[nuevaPosicionX][nuevaPosicionY])
+                    if (!validarSiPiezaNoEsAlcanzable(turno, temporalTorre, piezas, nuevaPosicionX, nuevaPosicionY))
                     {
-                        System.out.println("Esta torre no puede seguir este camino porque está siendo bloqueada por una pieza enemiga.");
                         return false;
                     }
+                } else if ((posicionPiezaX - nuevaPosicionX == 0) && (posicionPiezaY - nuevaPosicionY > 0)
+                        && (piezas[posicionPiezaX][posicionPiezaY - 1].color == turno)) {
+                    System.out.println("Esta torre no puede seguir este camino porque está siendo bloqueada por una pieza aliada.");
+                    return false;
                 }
 //                if ((posicionPiezaX == nuevaPosicionX || posicionPiezaY != nuevaPosicionY)
 //                        && (posicionPiezaX != nuevaPosicionX || posicionPiezaY == nuevaPosicionY))
@@ -78,11 +90,11 @@ public class Torre extends Pieza{
 //                    // Es para evitar que no entre en los otros if y forme un bucle
 //                    break;
 //                }
-                if (temporalTorre.color == turno && temporalTorre != piezas[nuevaPosicionX][nuevaPosicionY])
-                {
-                    System.out.println("Esta torre no puede seguir este camino porque está siendo bloqueada por una pieza aliada.");
-                    return false;
-                }
+//                if (temporalTorre.color == turno && temporalTorre != piezas[nuevaPosicionX][nuevaPosicionY])
+//                {
+//                    System.out.println("Esta torre no puede seguir este camino porque está siendo bloqueada por una pieza aliada.");
+//                    return false;
+//                }
             }
         }
         catch (ArrayIndexOutOfBoundsException e)
@@ -103,5 +115,15 @@ public class Torre extends Pieza{
         System.out.println("El objetivo no es alcanzable para la torre.");
 
         return false;
+    }
+
+    public boolean validarSiPiezaNoEsAlcanzable(int turno, Pieza temporalTorre, Pieza[][] piezas, int nuevaPosicionX, int nuevaPosicionY)
+    {
+        if ((temporalTorre.color != turno && temporalTorre.color != 0) && temporalTorre != piezas[nuevaPosicionX][nuevaPosicionY])
+        {
+            System.out.println("Esta torre no puede seguir este camino porque está siendo bloqueada por una pieza enemiga.");
+            return false;
+        }
+        return true;
     }
 }
