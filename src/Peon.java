@@ -2,7 +2,6 @@ import java.util.ArrayList;
 
 public class Peon extends Pieza
 {
-    boolean primerMovimiento = true;
     int distanciaMovimiento = 3;
     public Peon(int simbolo, int color)
     {
@@ -12,9 +11,8 @@ public class Peon extends Pieza
     public boolean moverANuevaPosicion (int turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX,
                                         int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal, ArrayList<String> piezasMuertas)
     {
-        if (primerMovimiento)
+        if (distanciaMovimiento == 3)
         {
-            primerMovimiento = false;
             boolean resultado = movimientoTurno(turno, posicionPiezaX, posicionPiezaY, nuevaPosicionX, nuevaPosicionY, piezas, variableNuevaPosicionTemporal, piezasMuertas);
             distanciaMovimiento = 2;
             return resultado;
