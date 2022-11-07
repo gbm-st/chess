@@ -4,7 +4,7 @@ public class Tablero {
     //Variable para el arreglo de las piezas
     private final Pieza[][] piezas;
 
-    Jugador[] jugadores;
+    public Jugador[] jugadores;
 
     // 1 == Blanco, 2 == Negro
     private byte turno = 1;
@@ -64,15 +64,26 @@ public class Tablero {
         piezas[0][6] = piezasJugadorNegro[6];
         piezas[0][7] = piezasJugadorNegro[7];
 
+        piezas[0][0].asignarCoordenadas(0, 0);
+        piezas[0][1].asignarCoordenadas(0, 1);
+        piezas[0][2].asignarCoordenadas(0, 2);
+        piezas[0][3].asignarCoordenadas(0, 3);
+        piezas[0][4].asignarCoordenadas(0, 4);
+        piezas[0][5].asignarCoordenadas(0, 5);
+        piezas[0][6].asignarCoordenadas(0, 6);
+        piezas[0][7].asignarCoordenadas(0, 7);
+
         //Piezas de la fila 7
         for(int x = 0, y = 8; x < 8; x++, y++) {
             piezas[1][x] = piezasJugadorNegro[y];
+            piezas[1][x].asignarCoordenadas(1, x);
         }
 
         //Espacios vacíos
         for(int x = 2; x < 6; x++){
             for(int y = 0; y < 8; y++){
-                piezas[x][y] = new Pieza(0, 0);
+                piezas[x][y] = new Pieza(0, 0, null);
+                piezas[x][y].asignarCoordenadas(x, y);
             }
         }
 
@@ -80,6 +91,7 @@ public class Tablero {
         //Piezas de la fila 2
         for(int x = 0, y = 8; x < 8; x++, y++) {
             piezas[6][x] = piezasJugadorBlanco[y];
+            piezas[6][x].asignarCoordenadas(6, x);
         }
 
         //Piezas de la fila 1
@@ -91,6 +103,15 @@ public class Tablero {
         piezas[7][5] = piezasJugadorBlanco[5];
         piezas[7][6] = piezasJugadorBlanco[6];
         piezas[7][7] = piezasJugadorBlanco[7];
+
+        piezas[7][0].asignarCoordenadas(7, 0);
+        piezas[7][1].asignarCoordenadas(7, 1);
+        piezas[7][2].asignarCoordenadas(7, 2);
+        piezas[7][3].asignarCoordenadas(7, 3);
+        piezas[7][4].asignarCoordenadas(7, 4);
+        piezas[7][5].asignarCoordenadas(7, 5);
+        piezas[7][6].asignarCoordenadas(7, 6);
+        piezas[7][7].asignarCoordenadas(7, 7);
     }
 
     public void cambiarTurno(int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX, int nuevaPosicionY)
