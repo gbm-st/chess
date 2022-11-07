@@ -79,7 +79,7 @@ public class Tablero {
         piezas[7][7] = new Torre( 3, 1);
     }
 
-    public boolean moverPieza(int turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX, int nuevaPosicionY)
+    public boolean realizarMovimiento(int turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX, int nuevaPosicionY)
     {
         // Validar que no se salga del tablero
         if(posicionPiezaX > 7 || posicionPiezaY > 7 || nuevaPosicionX > 7 || nuevaPosicionY > 7 ||

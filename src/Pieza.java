@@ -20,7 +20,7 @@ public class Pieza {
     * 12 = Peón
     * */
     protected static final String[] simbolos = {" ", "\u2654", "\u2655", "\u2656", "\u2657", "\u2658", "\u2659",
-                                "\u265A", "\u265B", "\u265C", "\u265D", "\u265E", "\u265F"};
+                                "\u001b[30m\u265A\u001b[0m", "\u265B", "\u265C", "\u265D", "\u265E", "\u265F"};
     //Variable para el valor unicode de las piezas individuales
     protected String valor;
     //Variable para el formato de impresión de las piezas
@@ -83,5 +83,9 @@ public class Pieza {
     public boolean moverANuevaPosicion(int turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX,
                                        int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal, ArrayList<String> piezasMuertas) {
         return false;
+    }
+
+    protected void validarJaque(int turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX,
+                             int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal, ArrayList<String> piezasMuertas){
     }
 }

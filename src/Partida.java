@@ -1,5 +1,6 @@
 public class Partida {
     // 1 == Blanco, 2 == Negro
+    public static boolean esJaque;
     private int turno = 1;
     private Tablero tablero;
 
@@ -17,7 +18,7 @@ public class Partida {
     public void cambiarTurno(int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX, int nuevaPosicionY)
     {
         // Si se cometió un error, cancela el turno y el jugador vuelve a repetir.
-        if (!(tablero.moverPieza(turno, posicionPiezaX, posicionPiezaY, nuevaPosicionX, nuevaPosicionY)))
+        if (!(tablero.realizarMovimiento(turno, posicionPiezaX, posicionPiezaY, nuevaPosicionX, nuevaPosicionY)))
         {
             if(turno == 1)
                 System.out.println("Turno Blanco");
