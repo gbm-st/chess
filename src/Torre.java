@@ -6,8 +6,8 @@ public class Torre extends Pieza{
         super(simbolo, color);
     }
 
-    public boolean moverANuevaPosicion (int turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX,
-                                        int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal, ArrayList<String> piezasMuertas)
+    public boolean moverANuevaPosicion (byte turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX,
+                                        int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal)
     {
         Pieza temporalTorre = piezas[posicionPiezaX][posicionPiezaY];
         int posicionOriginalX = posicionPiezaX;
@@ -105,10 +105,6 @@ public class Torre extends Pieza{
 
         if (piezas[posicionPiezaX][posicionPiezaY] == piezas[nuevaPosicionX][nuevaPosicionY])
         {
-            piezas[nuevaPosicionX][nuevaPosicionY]=this;
-            piezasMuertas.add(variableNuevaPosicionTemporal.valor);
-            resetearPieza(variableNuevaPosicionTemporal);
-            piezas[posicionOriginalX][posicionOriginalY]=variableNuevaPosicionTemporal;
             return true;
         }
 
@@ -117,7 +113,7 @@ public class Torre extends Pieza{
         return false;
     }
 
-    public boolean validarSiPiezaNoEsAlcanzable(int turno, Pieza temporalTorre, Pieza[][] piezas, int nuevaPosicionX, int nuevaPosicionY)
+    public boolean validarSiPiezaNoEsAlcanzable(byte turno, Pieza temporalTorre, Pieza[][] piezas, int nuevaPosicionX, int nuevaPosicionY)
     {
         if ((temporalTorre.color != turno && temporalTorre.color != 0) && temporalTorre != piezas[nuevaPosicionX][nuevaPosicionY])
         {

@@ -37,11 +37,11 @@ public class Pieza {
         this.color = color;
     }
 
-    public void resetearPieza(Pieza pieza)
+    public void resetearPieza()
     {
-        pieza.valor = Pieza.simbolos[0];
-        pieza.formato = "[ " + pieza.valor + " ]";
-        pieza.color = 0;
+        this.valor = Pieza.simbolos[0];
+        this.formato = "[ " + this.valor + " ]";
+        this.color = 0;
     }
 
     public String getFormato() {
@@ -56,8 +56,16 @@ public class Pieza {
         return getValor();
     }
 
-    public boolean validacionBasica (int turno, Pieza variableNuevaPosicionTemporal)
+    public boolean validacionBasica (byte turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX, int nuevaPosicionY, Pieza variableNuevaPosicionTemporal)
     {
+        // Validar que no se salga del tablero
+        if(posicionPiezaX > 7 || posicionPiezaY > 7 || nuevaPosicionX > 7 || nuevaPosicionY > 7 ||
+                posicionPiezaX < 0 || posicionPiezaY < 0 || nuevaPosicionX < 0 || nuevaPosicionY < 0)
+        {
+            System.out.println("No te puedes salir de los limites.");
+            return false;
+        }
+
         // Validar que no elija vacio o color contrario, validar que se coma al color contrario
         // Validar que no se coma a pieza con el mismo color
         // Validar condicion de exito para un color (pendiente)
@@ -80,8 +88,8 @@ public class Pieza {
     }
 
     // Método base para realizar polimorfismo.
-    public boolean moverANuevaPosicion(int turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX,
-                                       int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal, ArrayList<String> piezasMuertas) {
+    public boolean moverANuevaPosicion(byte turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX,
+                                       int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal) {
         return false;
     }
 }

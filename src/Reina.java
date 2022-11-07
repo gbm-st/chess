@@ -7,8 +7,8 @@ public class Reina extends Pieza{
         super(simbolo, color);
     }
 
-    public boolean moverANuevaPosicion (int turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX,
-                                        int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal, ArrayList<String> piezasMuertas)
+    public boolean moverANuevaPosicion (byte turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX,
+                                        int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal)
     {
         if (((posicionPiezaX - nuevaPosicionX > 0) && (posicionPiezaY - nuevaPosicionY > 0))
                 || ((posicionPiezaX - nuevaPosicionX < 0) && (posicionPiezaY - nuevaPosicionY < 0))
@@ -16,16 +16,16 @@ public class Reina extends Pieza{
                 || ((posicionPiezaX - nuevaPosicionX > 0) && (posicionPiezaY - nuevaPosicionY < 0)))
         {
             return movimientosAlfil(turno, posicionPiezaX, posicionPiezaY, nuevaPosicionX,
-                    nuevaPosicionY, piezas, variableNuevaPosicionTemporal, piezasMuertas);
+                    nuevaPosicionY, piezas, variableNuevaPosicionTemporal);
         }
         else {
             return movimientosTorre(turno, posicionPiezaX, posicionPiezaY, nuevaPosicionX,
-                    nuevaPosicionY, piezas, variableNuevaPosicionTemporal, piezasMuertas);
+                    nuevaPosicionY, piezas, variableNuevaPosicionTemporal);
         }
     }
 
-    public boolean movimientosAlfil(int turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX,
-                                    int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal, ArrayList<String> piezasMuertas)
+    public boolean movimientosAlfil(byte turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX,
+                                    int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal)
     {
         Pieza temporalReina = piezas[posicionPiezaX][posicionPiezaY];
         int posicionOriginalX = posicionPiezaX;
@@ -111,10 +111,6 @@ public class Reina extends Pieza{
 
         if (piezas[posicionPiezaX][posicionPiezaY] == piezas[nuevaPosicionX][nuevaPosicionY])
         {
-            piezas[nuevaPosicionX][nuevaPosicionY]=this;
-            piezasMuertas.add(variableNuevaPosicionTemporal.valor);
-            resetearPieza(variableNuevaPosicionTemporal);
-            piezas[posicionOriginalX][posicionOriginalY]=variableNuevaPosicionTemporal;
             return true;
         }
 
@@ -123,8 +119,8 @@ public class Reina extends Pieza{
         return false;
     }
 
-    public boolean movimientosTorre(int turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX,
-                                    int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal, ArrayList<String> piezasMuertas)
+    public boolean movimientosTorre(byte turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX,
+                                    int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal)
     {
         Pieza temporalReina = piezas[posicionPiezaX][posicionPiezaY];
         int posicionOriginalX = posicionPiezaX;
@@ -217,10 +213,6 @@ public class Reina extends Pieza{
 
         if (piezas[posicionPiezaX][posicionPiezaY] == piezas[nuevaPosicionX][nuevaPosicionY])
         {
-            piezas[nuevaPosicionX][nuevaPosicionY]=this;
-            piezasMuertas.add(variableNuevaPosicionTemporal.valor);
-            resetearPieza(variableNuevaPosicionTemporal);
-            piezas[posicionOriginalX][posicionOriginalY]=variableNuevaPosicionTemporal;
             return true;
         }
 
@@ -229,7 +221,7 @@ public class Reina extends Pieza{
         return false;
     }
 
-    public boolean validarSiPiezaNoEsAlcanzable(int turno, Pieza temporalReina, Pieza[][] piezas, int nuevaPosicionX, int nuevaPosicionY)
+    public boolean validarSiPiezaNoEsAlcanzable(byte turno, Pieza temporalReina, Pieza[][] piezas, int nuevaPosicionX, int nuevaPosicionY)
     {
         if ((temporalReina.color != turno && temporalReina.color != 0) && temporalReina != piezas[nuevaPosicionX][nuevaPosicionY])
         {

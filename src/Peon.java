@@ -8,23 +8,23 @@ public class Peon extends Pieza
         super(simbolo, color);
     }
 
-    public boolean moverANuevaPosicion (int turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX,
-                                        int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal, ArrayList<String> piezasMuertas)
+    public boolean moverANuevaPosicion (byte turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX,
+                                        int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal)
     {
         if (distanciaMovimiento == 3)
         {
-            boolean resultado = movimientoTurno(turno, posicionPiezaX, posicionPiezaY, nuevaPosicionX, nuevaPosicionY, piezas, variableNuevaPosicionTemporal, piezasMuertas);
+            boolean resultado = movimientoTurno(turno, posicionPiezaX, posicionPiezaY, nuevaPosicionX, nuevaPosicionY, piezas, variableNuevaPosicionTemporal);
             distanciaMovimiento = 2;
             return resultado;
         }
         else
         {
-            return movimientoTurno(turno, posicionPiezaX, posicionPiezaY, nuevaPosicionX, nuevaPosicionY, piezas, variableNuevaPosicionTemporal, piezasMuertas);
+            return movimientoTurno(turno, posicionPiezaX, posicionPiezaY, nuevaPosicionX, nuevaPosicionY, piezas, variableNuevaPosicionTemporal);
         }
     }
 
-    private boolean movimientoTurno(int turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX,
-                             int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal, ArrayList<String> piezasMuertas)
+    private boolean movimientoTurno(byte turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX,
+                             int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal)
     {
         if(turno == 1)
         {
@@ -32,16 +32,14 @@ public class Peon extends Pieza
                     && (posicionPiezaY - nuevaPosicionY == 0)
                     && piezas[nuevaPosicionX][nuevaPosicionY].color == 0)
             {
-                return cambiarPosicionPieza(piezas, nuevaPosicionX, nuevaPosicionY, posicionPiezaX,
-                        posicionPiezaY, variableNuevaPosicionTemporal);
+                return true;
             }
             else if ((nuevaPosicionX - posicionPiezaX) > -distanciaMovimiento
                     && (posicionPiezaY - nuevaPosicionY <= 1 || posicionPiezaY - nuevaPosicionY >= -1)
                     && (posicionPiezaY - nuevaPosicionY != 0)
                     && piezas[nuevaPosicionX][nuevaPosicionY].color == 2)
             {
-                return atacarPieza(piezas, nuevaPosicionX, nuevaPosicionY, posicionPiezaX,
-                        posicionPiezaY, variableNuevaPosicionTemporal, piezasMuertas);
+                return true;
             }
         }
         else if (turno == 2)
@@ -50,41 +48,18 @@ public class Peon extends Pieza
                     && (posicionPiezaY - nuevaPosicionY == 0)
                     && piezas[nuevaPosicionX][nuevaPosicionY].color == 0)
             {
-                return cambiarPosicionPieza(piezas, nuevaPosicionX, nuevaPosicionY, posicionPiezaX,
-                        posicionPiezaY, variableNuevaPosicionTemporal);
+                return true;
             }
             else if ((nuevaPosicionX - posicionPiezaX) < distanciaMovimiento
                     && (posicionPiezaY - nuevaPosicionY <= 1 || posicionPiezaY - nuevaPosicionY >= -1)
                     && (posicionPiezaY - nuevaPosicionY != 0)
                     && piezas[nuevaPosicionX][nuevaPosicionY].color == 1)
             {
-                return atacarPieza(piezas, nuevaPosicionX, nuevaPosicionY, posicionPiezaX,
-                        posicionPiezaY, variableNuevaPosicionTemporal, piezasMuertas);
+                return true;
             }
         }
 
         System.out.println("No se puede mover el peón a esta posición.");
         return false;
-    }
-
-    public boolean cambiarPosicionPieza (Pieza[][] piezas, int nuevaPosicionX, int nuevaPosicionY,
-                                         int posicionPiezaX, int posicionPiezaY , Pieza variableNuevaPosicionTemporal)
-    {
-        piezas[nuevaPosicionX][nuevaPosicionY]=this;
-        piezas[posicionPiezaX][posicionPiezaY]=variableNuevaPosicionTemporal;
-
-        return true;
-    }
-
-    public boolean atacarPieza (Pieza[][] piezas, int nuevaPosicionX, int nuevaPosicionY,
-                                int posicionPiezaX, int posicionPiezaY , Pieza variableNuevaPosicionTemporal,
-                                ArrayList<String> piezasMuertas)
-    {
-        piezas[nuevaPosicionX][nuevaPosicionY]=this;
-        piezasMuertas.add(variableNuevaPosicionTemporal.valor);
-        resetearPieza(variableNuevaPosicionTemporal);
-        piezas[posicionPiezaX][posicionPiezaY]=variableNuevaPosicionTemporal;
-
-        return true;
     }
 }

@@ -5,7 +5,7 @@ import static java.lang.Character.toLowerCase;
 public class Menu {
     //Clase que manejará el inicio y final del juego secuencialmente
     public Menu(){
-        Partida partida = new Partida();
+        Tablero tablero = new Tablero();
 
         int variableTemporal = 0;
 
@@ -31,7 +31,7 @@ public class Menu {
             System.out.print("Elije las coordenadas Y para mover a una posicion una pieza: ");
             nuevaPosicionY = toLowerCase(scanner.next().charAt(0)) - 'a';
 
-            partida.cambiarTurno(posicionPiezaX, posicionPiezaY, nuevaPosicionX, nuevaPosicionY);
+            tablero.cambiarTurno(posicionPiezaX, posicionPiezaY, nuevaPosicionX, nuevaPosicionY);
 
             if (variableTemporal == 30)
             {
