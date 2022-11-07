@@ -6,8 +6,8 @@ public class Rey extends Pieza{
         super(simbolo, color);
     }
 
-    public boolean moverANuevaPosicion (int turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX,
-                                        int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal, ArrayList<String> piezasMuertas) {
+    public boolean moverANuevaPosicion (byte turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX,
+                                        int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal) {
 
         try {
         /* Condición que verifica la posición deseada de la pieza hacia (x-1)(y-1). Si se cumple,
@@ -15,8 +15,7 @@ public class Rey extends Pieza{
             if ((piezas[posicionPiezaX - 1][posicionPiezaY - 1] == piezas[nuevaPosicionX][nuevaPosicionY])
                     && (piezas[posicionPiezaX - 1][posicionPiezaY - 1].color == 0
                     || piezas[posicionPiezaX - 1][posicionPiezaY - 1].color != turno)) {
-                return valorarEspacioEnemigo(turno, posicionPiezaX, posicionPiezaY, nuevaPosicionX, nuevaPosicionY,
-                        piezas, variableNuevaPosicionTemporal, piezasMuertas);
+                return true;
             }
         } catch (ArrayIndexOutOfBoundsException ignored) {
 
@@ -28,8 +27,7 @@ public class Rey extends Pieza{
             if ((piezas[posicionPiezaX - 1][posicionPiezaY] == piezas[nuevaPosicionX][nuevaPosicionY])
                     && (piezas[posicionPiezaX - 1][posicionPiezaY].color == 0
                     || piezas[posicionPiezaX - 1][posicionPiezaY].color != turno)) {
-                return valorarEspacioEnemigo(turno, posicionPiezaX, posicionPiezaY, nuevaPosicionX, nuevaPosicionY,
-                        piezas, variableNuevaPosicionTemporal, piezasMuertas);
+                return true;
             }
         } catch (ArrayIndexOutOfBoundsException ignored) {
 
@@ -41,8 +39,7 @@ public class Rey extends Pieza{
             if ((piezas[posicionPiezaX - 1][posicionPiezaY + 1] == piezas[nuevaPosicionX][nuevaPosicionY])
                     && (piezas[posicionPiezaX - 1][posicionPiezaY + 1].color == 0
                     || piezas[posicionPiezaX - 1][posicionPiezaY + 1].color != turno)) {
-                return valorarEspacioEnemigo(turno, posicionPiezaX, posicionPiezaY, nuevaPosicionX, nuevaPosicionY,
-                        piezas, variableNuevaPosicionTemporal, piezasMuertas);
+                return true;
             }
         } catch (ArrayIndexOutOfBoundsException ignored) {
 
@@ -54,8 +51,7 @@ public class Rey extends Pieza{
             if ((piezas[posicionPiezaX][posicionPiezaY - 1] == piezas[nuevaPosicionX][nuevaPosicionY])
                     && (piezas[posicionPiezaX][posicionPiezaY - 1].color == 0
                     || piezas[posicionPiezaX][posicionPiezaY - 1].color != turno)) {
-                return valorarEspacioEnemigo(turno, posicionPiezaX, posicionPiezaY, nuevaPosicionX, nuevaPosicionY,
-                        piezas, variableNuevaPosicionTemporal, piezasMuertas);
+                return true;
             }
         } catch (ArrayIndexOutOfBoundsException ignored) {
 
@@ -67,8 +63,7 @@ public class Rey extends Pieza{
             if ((piezas[posicionPiezaX][posicionPiezaY + 1] == piezas[nuevaPosicionX][nuevaPosicionY])
                     && (piezas[posicionPiezaX][posicionPiezaY + 1].color == 0
                     || piezas[posicionPiezaX][posicionPiezaY + 1].color != turno)) {
-                return valorarEspacioEnemigo(turno, posicionPiezaX, posicionPiezaY, nuevaPosicionX, nuevaPosicionY,
-                        piezas, variableNuevaPosicionTemporal, piezasMuertas);
+                return true;
             }
         } catch (ArrayIndexOutOfBoundsException ignored) {
 
@@ -80,8 +75,7 @@ public class Rey extends Pieza{
             if ((piezas[posicionPiezaX + 1][posicionPiezaY - 1] == piezas[nuevaPosicionX][nuevaPosicionY])
                     && (piezas[posicionPiezaX + 1][posicionPiezaY - 1].color == 0
                     || piezas[posicionPiezaX + 1][posicionPiezaY - 1].color != turno)) {
-                return valorarEspacioEnemigo(turno, posicionPiezaX, posicionPiezaY, nuevaPosicionX, nuevaPosicionY,
-                        piezas, variableNuevaPosicionTemporal, piezasMuertas);
+                return true;
             }
         } catch (ArrayIndexOutOfBoundsException ignored) {
 
@@ -93,8 +87,7 @@ public class Rey extends Pieza{
             if ((piezas[posicionPiezaX + 1][posicionPiezaY] == piezas[nuevaPosicionX][nuevaPosicionY])
                     && (piezas[posicionPiezaX + 1][posicionPiezaY].color == 0
                     || piezas[posicionPiezaX + 1][posicionPiezaY].color != turno)) {
-                return valorarEspacioEnemigo(turno, posicionPiezaX, posicionPiezaY, nuevaPosicionX, nuevaPosicionY,
-                        piezas, variableNuevaPosicionTemporal, piezasMuertas);
+                return true;
             }
         } catch (ArrayIndexOutOfBoundsException ignored) {
 
@@ -106,8 +99,7 @@ public class Rey extends Pieza{
             if ((piezas[posicionPiezaX + 1][posicionPiezaY + 1] == piezas[nuevaPosicionX][nuevaPosicionY])
                     && (piezas[posicionPiezaX + 1][posicionPiezaY + 1].color == 0
                     || piezas[posicionPiezaX + 1][posicionPiezaY + 1].color != turno)) {
-                return valorarEspacioEnemigo(turno, posicionPiezaX, posicionPiezaY, nuevaPosicionX, nuevaPosicionY,
-                        piezas, variableNuevaPosicionTemporal, piezasMuertas);
+                return true;
             }
         } catch (ArrayIndexOutOfBoundsException ignored) {
 
@@ -116,27 +108,5 @@ public class Rey extends Pieza{
         System.out.println("El objetivo no se encuentra en el rango del rey.");
 
         return false;
-    }
-
-    private boolean valorarEspacioEnemigo(int turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX,
-                                          int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal, ArrayList<String> piezasMuertas)
-    {
-        if (turno == 0){
-            piezas[nuevaPosicionX][nuevaPosicionY]=this;
-            piezas[posicionPiezaX][posicionPiezaY]=variableNuevaPosicionTemporal;
-            return true;
-        }
-        else if (turno != piezas[nuevaPosicionX][nuevaPosicionY].color)
-        {
-            piezas[nuevaPosicionX][nuevaPosicionY]=this;
-            piezasMuertas.add(variableNuevaPosicionTemporal.valor);
-            resetearPieza(variableNuevaPosicionTemporal);
-            piezas[posicionPiezaX][posicionPiezaY]=variableNuevaPosicionTemporal;
-            return true;
-        }
-        else
-        {
-            return false;
-        }
     }
 }

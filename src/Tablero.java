@@ -4,7 +4,11 @@ public class Tablero {
     //Variable para el arreglo de las piezas
     private final Pieza[][] piezas;
 
-    private ArrayList<String> piezasMuertas = new ArrayList<String>();
+    Jugador[] jugadores;
+
+    // 1 == Blanco, 2 == Negro
+    private byte turno = 1;
+
     //Variable para la leyenda del eje X
     private final String[] ejeX = {"( A )", "( B )", "( C )", "( D )",
             "( E )", "( F )", "( G )", "( H )"};
@@ -16,6 +20,7 @@ public class Tablero {
 
         inicializarTablero();
         imprimirTablero();
+        System.out.println("Turno Blanco");
     }
 
     //Método para imprimir el Tablero
@@ -39,20 +44,29 @@ public class Tablero {
 
     //Método para definir el estado inicial del tablero
     public void inicializarTablero(){
+
+        jugadores = new Jugador[2];
+
+        jugadores[0] = new Jugador((byte)1, this);
+        jugadores[1] = new Jugador((byte)2, this);
+
+        Pieza[] piezasJugadorBlanco = jugadores[0].obtenerPiezasJugador();
+        Pieza[] piezasJugadorNegro = jugadores[1].obtenerPiezasJugador();
+
         //*************NEGROS*****************
         //Piezas de la fila 8
-        piezas[0][0] = new Torre( 9, 2);
-        piezas[0][1] = new Caballo( 11, 2);
-        piezas[0][2] = new Alfil( 10, 2);
-        piezas[0][3] = new Reina(8, 2);
-        piezas[0][4] = new Rey( 7, 2);
-        piezas[0][5] = new Alfil( 10, 2);
-        piezas[0][6] = new Caballo( 11, 2);
-        piezas[0][7] = new Torre( 9, 2);
+        piezas[0][0] = piezasJugadorNegro[0];
+        piezas[0][1] = piezasJugadorNegro[1];
+        piezas[0][2] = piezasJugadorNegro[2];
+        piezas[0][3] = piezasJugadorNegro[3];
+        piezas[0][4] = piezasJugadorNegro[4];
+        piezas[0][5] = piezasJugadorNegro[5];
+        piezas[0][6] = piezasJugadorNegro[6];
+        piezas[0][7] = piezasJugadorNegro[7];
 
         //Piezas de la fila 7
-        for(int x = 0; x < 8; x++) {
-            piezas[1][x] = new Peon(12, 2);
+        for(int x = 0, y = 8; x < 8; x++, y++) {
+            piezas[1][x] = piezasJugadorNegro[y];
         }
 
         //Espacios vacíos
@@ -64,49 +78,61 @@ public class Tablero {
 
         //*************BLANCOS*****************
         //Piezas de la fila 2
-        for(int x = 0; x < 8; x++) {
-            piezas[6][x] = new Peon(6, 1);
+        for(int x = 0, y = 8; x < 8; x++, y++) {
+            piezas[6][x] = piezasJugadorBlanco[y];
         }
 
         //Piezas de la fila 1
-        piezas[7][0] = new Torre( 3, 1);
-        piezas[7][1] = new Caballo( 5, 1);
-        piezas[7][2] = new Alfil( 4, 1);
-        piezas[7][3] = new Reina( 2, 1);
-        piezas[7][4] = new Rey( 1, 1);
-        piezas[7][5] = new Alfil( 4, 1);
-        piezas[7][6] = new Caballo( 5, 1);
-        piezas[7][7] = new Torre( 3, 1);
+        piezas[7][0] = piezasJugadorBlanco[0];
+        piezas[7][1] = piezasJugadorBlanco[1];
+        piezas[7][2] = piezasJugadorBlanco[2];
+        piezas[7][3] = piezasJugadorBlanco[3];
+        piezas[7][4] = piezasJugadorBlanco[4];
+        piezas[7][5] = piezasJugadorBlanco[5];
+        piezas[7][6] = piezasJugadorBlanco[6];
+        piezas[7][7] = piezasJugadorBlanco[7];
     }
 
-    public boolean validarPieza(int turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX, int nuevaPosicionY)
+    public void cambiarTurno(int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX, int nuevaPosicionY)
     {
-        // Validar que no se salga del tablero
-        if(posicionPiezaX > 7 || posicionPiezaY > 7 || nuevaPosicionX > 7 || nuevaPosicionY > 7 ||
-                posicionPiezaX < 0 || posicionPiezaY < 0 || nuevaPosicionX < 0 || nuevaPosicionY < 0)
+        // Si se cometió un error, cancela el turno y el jugador vuelve a repetir.
+        if (!(jugadores[turno - 1].moverPieza(turno, posicionPiezaX, posicionPiezaY, nuevaPosicionX, nuevaPosicionY, piezas)))
         {
-            System.out.println("No te puedes salir de los limites.");
-            return false;
-        }
-
-        Pieza variablePiezaTemporal = piezas[posicionPiezaX][posicionPiezaY];
-        Pieza variableNuevaPosicionTemporal = piezas[nuevaPosicionX][nuevaPosicionY];
-
-        if(!(variablePiezaTemporal.validacionBasica(turno, variableNuevaPosicionTemporal)))
+            if(turno == 1)
+                System.out.println("Turno Blanco");
+            if(turno == 2)
+                System.out.println("Turno Negro");
+            return;
+        } // Se cambia de color/turno
+        if (turno == 1)
         {
-            return false;
+            turno = 2;
+            imprimirTablero();
+            System.out.println("Turno Negro");
+        } else if (turno == 2)
+        {
+            turno = 1;
+            imprimirTablero();
+            System.out.println("Turno Blanco");
         }
+    }
 
-        // Mandar a llamar el método que contenga las reglas de la pieza y
-        // verificar que las reglas se cumplan (ej. no te puedes saltar piezas excepto caballo,
-        // no puedes ir adelante como alfil o diagonal como torre, etc.)
+    public void eliminarPiezaJugador (Pieza piezaEliminada)
+    {
+        for(int i = 0; i < 2; i++)
+        {
+            for (int j = 0; j < jugadores[i].piezasJugador.length; j++)
+            {
+                if (jugadores[i].piezasJugador[j] == piezaEliminada)
+                {
+                    jugadores[i].piezasJugador[j] = null;
+                }
+            }
+        }
+    }
 
-        boolean valorEjecucion = variablePiezaTemporal.moverANuevaPosicion(turno, posicionPiezaX, posicionPiezaY, nuevaPosicionX,
-                nuevaPosicionY, piezas, variableNuevaPosicionTemporal, piezasMuertas);
-
-        imprimirTablero();
-
-        return valorEjecucion;
+    public void terminarPartida()
+    {
 
     }
 }
