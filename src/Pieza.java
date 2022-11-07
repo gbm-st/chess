@@ -19,6 +19,7 @@ public class Pieza {
     * 11 = Caballo
     * 12 = Peón
     * */
+    public Jugador jugador;
     protected static final String[] simbolos = {" ",
                                                 "\u001b[37m\u2654\u001b[0m",
                                                 "\u001b[37m\u2655\u001b[0m",
@@ -37,12 +38,16 @@ public class Pieza {
     //Variable para el formato de impresión de las piezas
     protected String formato;
 
+    protected int coordenadaX;
+    protected int coordenadaY;
+
     /*Variable para determinar el color/jugador que controla la pieza
     0 = vacio, 1 = blanco, 2 = negro
      */
     protected int color;
 
-    public Pieza(int simbolo, int color){
+    public Pieza(int simbolo, int color, Jugador jugador){
+        this.jugador = jugador;
         this.valor = Pieza.simbolos[simbolo];
         formato = "[ " + valor + " ]";
         this.color = color;
@@ -53,6 +58,7 @@ public class Pieza {
         this.valor = Pieza.simbolos[0];
         this.formato = "[ " + this.valor + " ]";
         this.color = 0;
+        this.jugador = null;
     }
 
     public String getFormato() {
@@ -100,7 +106,34 @@ public class Pieza {
 
     // Método base para realizar polimorfismo.
     public boolean moverANuevaPosicion(byte turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX,
-                                       int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal) {
+                                       int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal, Tablero tablero)
+    {
         return false;
+    }
+
+    public boolean estaJaqueando(byte turno, Pieza[][] piezas, Tablero tablero)
+    {
+        return false;
+    }
+
+    public void asignarCoordenadas(int x, int y)
+    {
+        coordenadaX = x;
+        coordenadaY = y;
+    }
+
+    public void imprimirCoordenadas()
+    {
+        System.out.println("Coordenada X: " + coordenadaX + " Coordenada Y: " + coordenadaY);
+    }
+
+    public int obtenerCoordenadaX()
+    {
+        return coordenadaX;
+    }
+
+    public int obtenerCoordenadaY()
+    {
+        return coordenadaY;
     }
 }

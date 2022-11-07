@@ -1,8 +1,10 @@
 public class Jugador
 {
-    Pieza[] piezasJugador;
+    public Pieza[] piezasJugador;
 
-    Tablero tablero;
+    public boolean esJaque;
+
+    public Tablero tablero;
 
     byte color;
 
@@ -20,37 +22,37 @@ public class Jugador
         {
 
             //Piezas de la fila 1
-            piezasJugador[0] = new Torre( 3, 1);
-            piezasJugador[1] = new Caballo( 5, 1);
-            piezasJugador[2] = new Alfil( 4, 1);
-            piezasJugador[3] = new Reina( 2, 1);
-            piezasJugador[4] = new Rey( 1, 1);
-            piezasJugador[5] = new Alfil( 4, 1);
-            piezasJugador[6] = new Caballo( 5, 1);
-            piezasJugador[7] = new Torre( 3, 1);
+            piezasJugador[0] = new Torre( 3, 1, this);
+            piezasJugador[1] = new Caballo( 5, 1, this);
+            piezasJugador[2] = new Alfil( 4, 1, this);
+            piezasJugador[3] = new Reina( 2, 1, this);
+            piezasJugador[4] = new Rey( 1, 1, this);
+            piezasJugador[5] = new Alfil( 4, 1, this);
+            piezasJugador[6] = new Caballo( 5, 1, this);
+            piezasJugador[7] = new Torre( 3, 1, this);
 
             //*************BLANCOS*****************
             //Piezas de la fila 2
             for(int x = 8; x < 16; x++) {
-                piezasJugador[x] = new Peon(6, 1);
+                piezasJugador[x] = new Peon(6, 1, this);
             }
 
         } else if (turno == 2)
         {
             //*************NEGROS*****************
             //Piezas de la fila 8
-            piezasJugador[0] = new Torre( 9, 2);
-            piezasJugador[1] = new Caballo( 11, 2);
-            piezasJugador[2] = new Alfil( 10, 2);
-            piezasJugador[3] = new Reina(8, 2);
-            piezasJugador[4] = new Rey( 7, 2);
-            piezasJugador[5] = new Alfil( 10, 2);
-            piezasJugador[6] = new Caballo( 11, 2);
-            piezasJugador[7] = new Torre( 9, 2);
+            piezasJugador[0] = new Torre( 9, 2, this);
+            piezasJugador[1] = new Caballo( 11, 2, this);
+            piezasJugador[2] = new Alfil( 10, 2, this);
+            piezasJugador[3] = new Reina(8, 2, this);
+            piezasJugador[4] = new Rey( 7, 2, this);
+            piezasJugador[5] = new Alfil( 10, 2, this);
+            piezasJugador[6] = new Caballo( 11, 2, this);
+            piezasJugador[7] = new Torre( 9, 2, this);
 
             //Piezas de la fila 7
             for(int x = 8; x < 16; x++) {
-                piezasJugador[x] = new Peon(12, 2);
+                piezasJugador[x] = new Peon(12, 2, this);
             }
         }
     }
@@ -62,6 +64,8 @@ public class Jugador
 
     public boolean moverPieza(byte turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX, int nuevaPosicionY, Pieza[][] piezas)
     {
+        boolean resultado;
+
         if(!(piezas[posicionPiezaX][posicionPiezaY].validacionBasica(turno, posicionPiezaX, posicionPiezaY, nuevaPosicionX, nuevaPosicionY, piezas[nuevaPosicionX][nuevaPosicionY])))
         {
             return false;
@@ -72,13 +76,21 @@ public class Jugador
         // no puedes ir adelante como alfil o diagonal como torre, etc.)
 
         boolean valorEjecucion = piezas[posicionPiezaX][posicionPiezaY].moverANuevaPosicion(turno, posicionPiezaX, posicionPiezaY, nuevaPosicionX,
-                nuevaPosicionY, piezas, piezas[nuevaPosicionX][nuevaPosicionY]);
+                nuevaPosicionY, piezas, piezas[nuevaPosicionX][nuevaPosicionY], tablero);
 
         if (valorEjecucion && (piezas[nuevaPosicionX][nuevaPosicionY].color != turno && piezas[nuevaPosicionX][nuevaPosicionY].color != 0))
         {
-            return atacarPieza(piezas, nuevaPosicionX, nuevaPosicionY, posicionPiezaX, posicionPiezaY);
+            resultado = atacarPieza(piezas, nuevaPosicionX, nuevaPosicionY, posicionPiezaX, posicionPiezaY);
+
+            piezas[nuevaPosicionX][nuevaPosicionY].estaJaqueando(turno, piezas, tablero);
+
+            return resultado;
         } else if (valorEjecucion && (piezas[nuevaPosicionX][nuevaPosicionY].color == 0)) {
-            return cambiarPosicionPieza(piezas, nuevaPosicionX, nuevaPosicionY, posicionPiezaX, posicionPiezaY);
+            resultado = cambiarPosicionPieza(piezas, nuevaPosicionX, nuevaPosicionY, posicionPiezaX, posicionPiezaY);
+
+            piezas[nuevaPosicionX][nuevaPosicionY].estaJaqueando(turno, piezas, tablero);
+
+            return resultado;
         }
 
         return valorEjecucion;
@@ -93,6 +105,9 @@ public class Jugador
         piezas[nuevaPosicionX][nuevaPosicionY]=posicionOriginal;
         piezas[posicionPiezaX][posicionPiezaY]=nuevaPosicion;
 
+        piezas[nuevaPosicionX][nuevaPosicionY].asignarCoordenadas(nuevaPosicionX, nuevaPosicionY);
+        piezas[posicionPiezaX][posicionPiezaY].asignarCoordenadas(posicionPiezaX, posicionPiezaY);
+
         return true;
     }
 
@@ -106,6 +121,9 @@ public class Jugador
         piezaEliminada.resetearPieza();
         tablero.eliminarPiezaJugador(piezaEliminada);
         piezas[posicionPiezaX][posicionPiezaY]=piezaEliminada;
+
+        piezas[nuevaPosicionX][nuevaPosicionY].asignarCoordenadas(nuevaPosicionX, nuevaPosicionY);
+        piezas[posicionPiezaX][posicionPiezaY].asignarCoordenadas(posicionPiezaX, posicionPiezaY);
 
         return true;
     }
