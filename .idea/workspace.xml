@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="64226856-4554-4da0-886d-c16d8e6f6b0e" name="Changes" comment="Se actualizó el movimiento del Rey.">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="64226856-4554-4da0-886d-c16d8e6f6b0e" name="Changes" comment="Se implementó el método validarJaque() y la variable booleana esJaque.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Alfil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Alfil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Caballo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Caballo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Casilla.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Partida.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Partida.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Pieza.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pieza.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tablero.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tablero.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +74,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667573304758</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Se implementó el método validarJaque() y la variable booleana esJaque.">
+      <created>1667835024268</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1667835024268</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -98,6 +99,7 @@
     <MESSAGE value="Se implementó la impresión inicial del tablero." />
     <MESSAGE value="Se implementó la clase Partida." />
     <MESSAGE value="Se actualizó el movimiento del Rey." />
-    <option name="LAST_COMMIT_MESSAGE" value="Se actualizó el movimiento del Rey." />
+    <MESSAGE value="Se implementó el método validarJaque() y la variable booleana esJaque." />
+    <option name="LAST_COMMIT_MESSAGE" value="Se implementó el método validarJaque() y la variable booleana esJaque." />
   </component>
 </project>

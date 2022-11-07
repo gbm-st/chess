@@ -19,8 +19,19 @@ public class Pieza {
     * 11 = Caballo
     * 12 = Peón
     * */
-    protected static final String[] simbolos = {" ", "\u2654", "\u2655", "\u2656", "\u2657", "\u2658", "\u2659",
-                                "\u001b[30m\u265A\u001b[0m", "\u265B", "\u265C", "\u265D", "\u265E", "\u265F"};
+    protected static final String[] simbolos = {" ",
+                                                "\u001b[37m\u2654\u001b[0m",
+                                                "\u001b[37m\u2655\u001b[0m",
+                                                "\u001b[37m\u2656\u001b[0m",
+                                                "\u001b[37m\u2657\u001b[0m",
+                                                "\u001b[37m\u2658\u001b[0m",
+                                                "\u001b[37m\u2659\u001b[0m",
+                                                "\u001b[30m\u265A\u001b[0m",
+                                                "\u001b[30m\u265B\u001b[0m",
+                                                "\u001b[30m\u265C\u001b[0m",
+                                                "\u001b[30m\u265D\u001b[0m",
+                                                "\u001b[30m\u265E\u001b[0m",
+                                                "\u001b[30m\u2659\u001b[0m"};
     //Variable para el valor unicode de las piezas individuales
     protected String valor;
     //Variable para el formato de impresión de las piezas
@@ -44,16 +55,8 @@ public class Pieza {
         pieza.color = 0;
     }
 
-    public String getFormato() {
-        return formato;
-    }
-
-    public String getValor(){
-        return valor;
-    }
-
-    public String toString(){
-        return getValor();
+    public void colorearPieza(){
+        this.valor = String.format("\u001b[32m" + getValor() + "\u001b[0m");
     }
 
     public boolean validacionBasica (int turno, Pieza variableNuevaPosicionTemporal)
@@ -88,4 +91,21 @@ public class Pieza {
     protected void validarJaque(int turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX,
                              int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal, ArrayList<String> piezasMuertas){
     }
+
+    public String getFormato() {
+        return formato;
+    }
+
+    public String getValor(){
+        return valor;
+    }
+
+    public void setValor(String valor){
+        this.valor = valor;
+    }
+
+    public String toString(){
+        return getValor();
+    }
+
 }
