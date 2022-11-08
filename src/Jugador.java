@@ -2,7 +2,7 @@ public class Jugador
 {
     public Pieza[] piezasJugador;
 
-    public boolean esJaque;
+    public boolean estaEnJaque;
 
     public Tablero tablero;
 
@@ -21,6 +21,7 @@ public class Jugador
         if (turno == 1)
         {
 
+            //*************BLANCOS*****************
             //Piezas de la fila 1
             piezasJugador[0] = new Torre( 3, 1, this);
             piezasJugador[1] = new Caballo( 5, 1, this);
@@ -31,7 +32,8 @@ public class Jugador
             piezasJugador[6] = new Caballo( 5, 1, this);
             piezasJugador[7] = new Torre( 3, 1, this);
 
-            //*************BLANCOS*****************
+            tablero.reyBlanco = piezasJugador[4];
+
             //Piezas de la fila 2
             for(int x = 8; x < 16; x++) {
                 piezasJugador[x] = new Peon(6, 1, this);
@@ -50,6 +52,8 @@ public class Jugador
             piezasJugador[6] = new Caballo( 11, 2, this);
             piezasJugador[7] = new Torre( 9, 2, this);
 
+            tablero.reyNegro = piezasJugador[4];
+
             //Piezas de la fila 7
             for(int x = 8; x < 16; x++) {
                 piezasJugador[x] = new Peon(12, 2, this);
@@ -62,9 +66,19 @@ public class Jugador
         return piezasJugador;
     }
 
-    public boolean moverPieza(byte turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX, int nuevaPosicionY, Pieza[][] piezas)
+    public boolean moverPieza(byte turno, short posicionPiezaX, short posicionPiezaY, short nuevaPosicionX, short nuevaPosicionY, Pieza[][] piezas)
     {
+        Pieza piezaPosicionInicial = piezas[posicionPiezaX][posicionPiezaY];
+        Pieza piezaEliminada;
         boolean resultado;
+
+        // Validar que no se salga del tablero
+        if(posicionPiezaX > 7 || posicionPiezaY > 7 || nuevaPosicionX > 7 || nuevaPosicionY > 7 ||
+                posicionPiezaX < 0 || posicionPiezaY < 0 || nuevaPosicionX < 0 || nuevaPosicionY < 0)
+        {
+            System.out.println("No te puedes salir de los limites.");
+            return false;
+        }
 
         if(!(piezas[posicionPiezaX][posicionPiezaY].validacionBasica(turno, posicionPiezaX, posicionPiezaY, nuevaPosicionX, nuevaPosicionY, piezas[nuevaPosicionX][nuevaPosicionY])))
         {
@@ -80,15 +94,43 @@ public class Jugador
 
         if (valorEjecucion && (piezas[nuevaPosicionX][nuevaPosicionY].color != turno && piezas[nuevaPosicionX][nuevaPosicionY].color != 0))
         {
-            resultado = atacarPieza(piezas, nuevaPosicionX, nuevaPosicionY, posicionPiezaX, posicionPiezaY);
+            piezaEliminada = atacarPieza(piezas, nuevaPosicionX, nuevaPosicionY, posicionPiezaX, posicionPiezaY);
+            resultado = true;
 
-            piezas[nuevaPosicionX][nuevaPosicionY].estaJaqueando(turno, piezas, tablero);
+            if (this == tablero.jugadores[0])
+            {
+                tablero.jugadores[1].estaEnJaque = piezas[nuevaPosicionX][nuevaPosicionY].estaJaqueando(turno, piezas, tablero);
+            } else if (this == tablero.jugadores[1]) {
+                tablero.jugadores[0].estaEnJaque = piezas[nuevaPosicionX][nuevaPosicionY].estaJaqueando(turno, piezas, tablero);
+            }
+
+            if (piezas[nuevaPosicionX][nuevaPosicionY].reyAliadoEstaEnJaque(turno, piezas, tablero))
+            {
+                revertirCambios(piezas, posicionPiezaX, posicionPiezaY, nuevaPosicionX, nuevaPosicionY, piezaPosicionInicial, piezaEliminada);
+                tablero.imprimirTablero();
+                return false;
+            }
 
             return resultado;
-        } else if (valorEjecucion && (piezas[nuevaPosicionX][nuevaPosicionY].color == 0)) {
-            resultado = cambiarPosicionPieza(piezas, nuevaPosicionX, nuevaPosicionY, posicionPiezaX, posicionPiezaY);
+        }
+        else if (valorEjecucion && (piezas[nuevaPosicionX][nuevaPosicionY].color == 0))
+        {
+            piezaEliminada = cambiarPosicionPieza(piezas, nuevaPosicionX, nuevaPosicionY, posicionPiezaX, posicionPiezaY);
+            resultado = true;
 
-            piezas[nuevaPosicionX][nuevaPosicionY].estaJaqueando(turno, piezas, tablero);
+            if (this == tablero.jugadores[0])
+            {
+                tablero.jugadores[1].estaEnJaque = piezas[nuevaPosicionX][nuevaPosicionY].estaJaqueando(turno, piezas, tablero);
+            } else if (this == tablero.jugadores[1]) {
+                tablero.jugadores[0].estaEnJaque = piezas[nuevaPosicionX][nuevaPosicionY].estaJaqueando(turno, piezas, tablero);
+            }
+
+            if (piezas[nuevaPosicionX][nuevaPosicionY].reyAliadoEstaEnJaque(turno, piezas, tablero))
+            {
+                revertirCambios(piezas, posicionPiezaX, posicionPiezaY, nuevaPosicionX, nuevaPosicionY, piezaPosicionInicial, piezaEliminada);
+                tablero.imprimirTablero();
+                return false;
+            }
 
             return resultado;
         }
@@ -96,11 +138,11 @@ public class Jugador
         return valorEjecucion;
     }
 
-    public boolean cambiarPosicionPieza (Pieza[][] piezas, int nuevaPosicionX, int nuevaPosicionY,
+    public Pieza cambiarPosicionPieza (Pieza[][] piezas, int nuevaPosicionX, int nuevaPosicionY,
                                          int posicionPiezaX, int posicionPiezaY)
     {
-        Pieza nuevaPosicion = piezas[nuevaPosicionX][nuevaPosicionY];
         Pieza posicionOriginal = piezas[posicionPiezaX][posicionPiezaY];
+        Pieza nuevaPosicion = piezas[nuevaPosicionX][nuevaPosicionY];
 
         piezas[nuevaPosicionX][nuevaPosicionY]=posicionOriginal;
         piezas[posicionPiezaX][posicionPiezaY]=nuevaPosicion;
@@ -108,23 +150,30 @@ public class Jugador
         piezas[nuevaPosicionX][nuevaPosicionY].asignarCoordenadas(nuevaPosicionX, nuevaPosicionY);
         piezas[posicionPiezaX][posicionPiezaY].asignarCoordenadas(posicionPiezaX, posicionPiezaY);
 
-        return true;
+        return nuevaPosicion;
     }
 
-    public boolean atacarPieza (Pieza[][] piezas, int nuevaPosicionX, int nuevaPosicionY,
+    public Pieza atacarPieza (Pieza[][] piezas, int nuevaPosicionX, int nuevaPosicionY,
                                 int posicionPiezaX, int posicionPiezaY)
     {
         Pieza piezaQueSeVaAMover = piezas[posicionPiezaX][posicionPiezaY];
         Pieza piezaEliminada = piezas[nuevaPosicionX][nuevaPosicionY];
 
         piezas[nuevaPosicionX][nuevaPosicionY]=piezaQueSeVaAMover;
-        piezaEliminada.resetearPieza();
         tablero.eliminarPiezaJugador(piezaEliminada);
-        piezas[posicionPiezaX][posicionPiezaY]=piezaEliminada;
+        piezas[posicionPiezaX][posicionPiezaY]= new Pieza(0, 0, null);
 
         piezas[nuevaPosicionX][nuevaPosicionY].asignarCoordenadas(nuevaPosicionX, nuevaPosicionY);
         piezas[posicionPiezaX][posicionPiezaY].asignarCoordenadas(posicionPiezaX, posicionPiezaY);
 
-        return true;
+        return piezaEliminada;
+    }
+
+    private void revertirCambios(Pieza[][] piezas, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX, int nuevaPosicionY, Pieza piezaPosicionInicial, Pieza piezaEliminada)
+    {
+        piezas[posicionPiezaX][posicionPiezaY]=piezaPosicionInicial;
+        piezas[nuevaPosicionX][nuevaPosicionY]=piezaEliminada;
+
+        piezaEliminada.piezaMuerta = false;
     }
 }

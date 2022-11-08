@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Reina extends Pieza{
-    public int no;
+public class Reina extends Pieza
+{
     public Reina(int simbolo, int color, Jugador jugador)
     {
         super(simbolo, color, jugador);
@@ -232,8 +232,51 @@ public class Reina extends Pieza{
         return true;
     }
 
-    public boolean estaEnJaque()
+    public boolean reyAliadoEstaEnJaque(byte turno, Pieza[][] piezas, Tablero tablero)
     {
+        Pieza[] piezasEnemigas;
+
+        int distanciaMovimientoPeon = 2;
+
+        if (jugador.color == 1)
+        {
+            piezasEnemigas = tablero.jugadores[1].piezasJugador;
+        } else if (jugador.color == 2) {
+            piezasEnemigas = tablero.jugadores[0].piezasJugador;
+        }
+        else {
+            return false;
+        }
+
+        if (turno == 1)
+        {
+            turno = 2;
+        }
+        else
+        {
+            turno = 1;
+        }
+
+        for(Pieza piezaEnemiga: piezasEnemigas)
+        {
+            if (piezaEnemiga.valor == Pieza.simbolos[6] || piezaEnemiga.valor == Pieza.simbolos[12])
+            {
+                distanciaMovimientoPeon = ((Peon)piezaEnemiga).obtenerDistanciaMovimieno();
+            }
+
+            if (!piezaEnemiga.piezaMuerta && piezaEnemiga.estaJaqueando(turno, piezas, tablero))
+            {
+                System.out.println("No puedes moverte aqui porque estan jaqueando a alidado.");
+                return true;
+            }
+
+            if (piezaEnemiga.valor == Pieza.simbolos[6] || piezaEnemiga.valor == Pieza.simbolos[12])
+            {
+                ((Peon)piezaEnemiga).darDistanciaMovimiento(distanciaMovimientoPeon);
+            }
+        }
+
+        System.out.println("No se esta jaqueando a alidado.");
         return false;
     }
 

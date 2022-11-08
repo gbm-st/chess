@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Pieza {
     //Definición de los valores unicode para cada una de las piezas del juego
     /*
@@ -20,6 +18,8 @@ public class Pieza {
     * 12 = Peón
     * */
     public Jugador jugador;
+
+    public boolean piezaMuerta;
     protected static final String[] simbolos = {" ",
                                                 "\u001b[37m\u2654\u001b[0m",
                                                 "\u001b[37m\u2655\u001b[0m",
@@ -27,12 +27,12 @@ public class Pieza {
                                                 "\u001b[37m\u2657\u001b[0m",
                                                 "\u001b[37m\u2658\u001b[0m",
                                                 "\u001b[37m\u2659\u001b[0m",
-                                                "\u001b[30m\u265A\u001b[0m",
-                                                "\u001b[30m\u265B\u001b[0m",
-                                                "\u001b[30m\u265C\u001b[0m",
-                                                "\u001b[30m\u265D\u001b[0m",
-                                                "\u001b[30m\u265E\u001b[0m",
-                                                "\u001b[30m\u2659\u001b[0m"};
+                                                "\u001b[31m\u265A\u001b[0m",
+                                                "\u001b[31m\u265B\u001b[0m",
+                                                "\u001b[31m\u265C\u001b[0m",
+                                                "\u001b[31m\u265D\u001b[0m",
+                                                "\u001b[31m\u265E\u001b[0m",
+                                                "\u001b[31m\u2659\u001b[0m"};
     //Variable para el valor unicode de las piezas individuales
     protected String valor;
     //Variable para el formato de impresión de las piezas
@@ -75,14 +75,6 @@ public class Pieza {
 
     public boolean validacionBasica (byte turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX, int nuevaPosicionY, Pieza variableNuevaPosicionTemporal)
     {
-        // Validar que no se salga del tablero
-        if(posicionPiezaX > 7 || posicionPiezaY > 7 || nuevaPosicionX > 7 || nuevaPosicionY > 7 ||
-                posicionPiezaX < 0 || posicionPiezaY < 0 || nuevaPosicionX < 0 || nuevaPosicionY < 0)
-        {
-            System.out.println("No te puedes salir de los limites.");
-            return false;
-        }
-
         // Validar que no elija vacio o color contrario, validar que se coma al color contrario
         // Validar que no se coma a pieza con el mismo color
         // Validar condicion de exito para un color (pendiente)
@@ -107,6 +99,11 @@ public class Pieza {
     // Método base para realizar polimorfismo.
     public boolean moverANuevaPosicion(byte turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX,
                                        int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal, Tablero tablero)
+    {
+        return false;
+    }
+
+    public boolean reyAliadoEstaEnJaque(byte turno, Pieza[][] piezas, Tablero tablero)
     {
         return false;
     }

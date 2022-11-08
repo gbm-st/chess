@@ -31,7 +31,7 @@ public class Menu {
             System.out.print("Elije las coordenadas Y para mover a una posicion una pieza: ");
             nuevaPosicionY = toLowerCase(scanner.next().charAt(0)) - 'a';
 
-            tablero.cambiarTurno(posicionPiezaX, posicionPiezaY, nuevaPosicionX, nuevaPosicionY);
+            tablero.cambiarTurno((short)posicionPiezaX, (short)posicionPiezaY, (short)nuevaPosicionX, (short)nuevaPosicionY);
 
             if (variableTemporal == 30)
             {
