@@ -6,6 +6,10 @@ public class Tablero {
 
     public Jugador[] jugadores;
 
+    public Pieza reyBlanco;
+
+    public Pieza reyNegro;
+
     // 1 == Blanco, 2 == Negro
     private byte turno = 1;
 
@@ -114,7 +118,7 @@ public class Tablero {
         piezas[7][7].asignarCoordenadas(7, 7);
     }
 
-    public void cambiarTurno(int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX, int nuevaPosicionY)
+    public void cambiarTurno(short posicionPiezaX, short posicionPiezaY, short nuevaPosicionX, short nuevaPosicionY)
     {
         // Si se cometió un error, cancela el turno y el jugador vuelve a repetir.
         if (!(jugadores[turno - 1].moverPieza(turno, posicionPiezaX, posicionPiezaY, nuevaPosicionX, nuevaPosicionY, piezas)))
@@ -146,7 +150,7 @@ public class Tablero {
             {
                 if (jugadores[i].piezasJugador[j] == piezaEliminada)
                 {
-                    jugadores[i].piezasJugador[j] = null;
+                    jugadores[i].piezasJugador[j].piezaMuerta = true;
                 }
             }
         }
