@@ -75,12 +75,12 @@ public class Pieza {
 
     public boolean validacionBasica (byte turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX, int nuevaPosicionY, Pieza variableNuevaPosicionTemporal)
     {
-        // Validar que no elija vacio o color contrario, validar que se coma al color contrario
+        // Validar que no elija vacío o color contrario, validar que se coma al color contrario
         // Validar que no se coma a pieza con el mismo color
-        // Validar condicion de exito para un color (pendiente)
+        // Validar condición de éxito para un color (pendiente)
 
         if (this.color == 0) {
-            System.out.println("No puedes mover espacios vacios.");
+            System.out.println("No puedes mover espacios vacíos.");
             return false;
         }
         if ((this.color == 1 && turno == 2) || (this.color == 2 && turno == 1)) {

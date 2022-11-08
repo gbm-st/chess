@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.Objects;
-
 public class Peon extends Pieza
 {
     int distanciaMovimiento = 3;
@@ -9,7 +6,7 @@ public class Peon extends Pieza
         super(simbolo, color, jugador);
     }
 
-    public int obtenerDistanciaMovimieno()
+    public int obtenerDistanciaMovimiento()
     {
         return distanciaMovimiento;
     }
@@ -105,12 +102,12 @@ public class Peon extends Pieza
 
             if (piezaEnemiga.valor == Pieza.simbolos[6] || piezaEnemiga.valor == Pieza.simbolos[12])
             {
-                distanciaMovimientoPeon = ((Peon)piezaEnemiga).obtenerDistanciaMovimieno();
+                distanciaMovimientoPeon = ((Peon)piezaEnemiga).obtenerDistanciaMovimiento();
             }
 
             if (!piezaEnemiga.piezaMuerta && piezaEnemiga.estaJaqueando(turno, piezas, tablero))
             {
-                System.out.println("No puedes moverte aqui porque estan jaqueando a alidado.");
+                System.out.println("No puedes moverte aquí porque están jaqueando a aliado.");
                 return true;
             }
 
@@ -120,7 +117,7 @@ public class Peon extends Pieza
             }
         }
 
-        System.out.println("No se esta jaqueando a alidado.");
+        System.out.println("No se esta jaqueando a aliado.");
         return false;
     }
 

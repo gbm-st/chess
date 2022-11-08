@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class Alfil extends Pieza{
@@ -173,12 +172,12 @@ public class Alfil extends Pieza{
         {
             if (piezaEnemiga.valor == Pieza.simbolos[6] || piezaEnemiga.valor == Pieza.simbolos[12])
             {
-                distanciaMovimientoPeon = ((Peon)piezaEnemiga).obtenerDistanciaMovimieno();
+                distanciaMovimientoPeon = ((Peon)piezaEnemiga).obtenerDistanciaMovimiento();
             }
 
             if (!piezaEnemiga.piezaMuerta && piezaEnemiga.estaJaqueando(turno, piezas, tablero))
             {
-                System.out.println("No puedes moverte aqui porque estan jaqueando a alidado.");
+                System.out.println("No puedes moverte aquí porque están jaqueando a aliado.");
                 return true;
             }
 
@@ -188,7 +187,7 @@ public class Alfil extends Pieza{
             }
         }
 
-        System.out.println("No se esta jaqueando a alidado.");
+        System.out.println("No se esta jaqueando a aliado.");
         return false;
     }
 }
