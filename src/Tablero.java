@@ -1,4 +1,7 @@
 import java.util.ArrayList;
+import java.util.Scanner;
+
+import static java.lang.Character.toLowerCase;
 
 public class Tablero {
     //Variable para el arreglo de las piezas
@@ -19,12 +22,23 @@ public class Tablero {
     //Variable para la leyenda del eje Y
     private final String[] ejeY = {"8", "7", "6", "5", "4", "3", "2", "1"};
 
+    int variableTemporal = 0;
+
+    private int posicionPiezaX;
+    private int posicionPiezaY;
+    private int nuevaPosicionX;
+    private int nuevaPosicionY;
+
+    Scanner scanner = new Scanner(System.in);
+
     public Tablero() {
         piezas = new Pieza[8][8];
 
         inicializarTablero();
         imprimirTablero();
         System.out.println("Turno Blanco");
+
+        capturarDirectivas();
     }
 
     //Método para imprimir el Tablero
@@ -116,6 +130,33 @@ public class Tablero {
         piezas[7][5].asignarCoordenadas(7, 5);
         piezas[7][6].asignarCoordenadas(7, 6);
         piezas[7][7].asignarCoordenadas(7, 7);
+    }
+
+    public void capturarDirectivas(){
+        while(true)
+        {
+            variableTemporal += 1;
+
+            // Hace falta poner try catch para validar
+            System.out.print("Elige las coordenadas X  para elegir una pieza: ");
+            posicionPiezaX = 8 - scanner.nextInt();
+            System.out.print("Elige las coordenadas Y para elegir una pieza: ");
+            posicionPiezaY = toLowerCase(scanner.next().charAt(0)) - 'a';
+            System.out.print("Elige las coordenadas X para mover a una posición una pieza: ");
+            nuevaPosicionX = 8 - scanner.nextInt();
+            System.out.print("Elige las coordenadas Y para mover a una posición una pieza: ");
+            nuevaPosicionY = toLowerCase(scanner.next().charAt(0)) - 'a';
+
+            cambiarTurno((short)posicionPiezaX, (short)posicionPiezaY, (short)nuevaPosicionX, (short)nuevaPosicionY);
+
+            if (variableTemporal == 30)
+            {
+                break;
+            }
+        }
+
+        //Cerrar scanner
+        scanner.close();
     }
 
     public void cambiarTurno(short posicionPiezaX, short posicionPiezaY, short nuevaPosicionX, short nuevaPosicionY)
