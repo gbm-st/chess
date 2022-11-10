@@ -22,13 +22,13 @@ public class Menu {
             cantidadDeTurnosDisponibles += 1;
 
             // Hace falta poner try catch para validar
-            System.out.print("Elije las coordenadas X  para elegir una pieza: ");
+            System.out.print("Elige las coordenadas X  para elegir una pieza: ");
             posicionPiezaX = 8 - scanner.nextInt();
-            System.out.print("Elije las coordenadas Y para elegir una pieza: ");
+            System.out.print("Elige las coordenadas Y para elegir una pieza: ");
             posicionPiezaY = toLowerCase(scanner.next().charAt(0)) - 'a';
-            System.out.print("Elije las coordenadas X para mover a una posicion una pieza: ");
+            System.out.print("Elige las coordenadas X para mover a una posición una pieza: ");
             nuevaPosicionX = 8 - scanner.nextInt();
-            System.out.print("Elije las coordenadas Y para mover a una posicion una pieza: ");
+            System.out.print("Elige las coordenadas Y para mover a una posición una pieza: ");
             nuevaPosicionY = toLowerCase(scanner.next().charAt(0)) - 'a';
 
             tablero.cambiarTurno((short)posicionPiezaX, (short)posicionPiezaY, (short)nuevaPosicionX, (short)nuevaPosicionY);
