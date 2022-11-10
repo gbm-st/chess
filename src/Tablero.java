@@ -2,9 +2,11 @@ import java.util.ArrayList;
 
 public class Tablero {
     //Variable para el arreglo de las piezas
-    private final Pieza[][] piezas;
+    final Pieza[][] piezas;
 
     public Jugador[] jugadores;
+
+    public boolean JaqueMate;
 
     public Pieza reyBlanco;
 
@@ -25,6 +27,59 @@ public class Tablero {
         inicializarTablero();
         imprimirTablero();
         System.out.println("Turno Blanco");
+    }
+
+    public Tablero(Tablero tableroOriginal) {
+        piezas = new Pieza[8][8];
+
+        Pieza[] piezasBlancas = new Pieza[16];
+
+        Pieza[] piezasNegras = new Pieza[16];
+
+        int x = 0;
+        int y = 0;
+
+        for(int i = 0; i < 8; i++)
+        {
+            for (int j = 0; j < 8; j++)
+            {
+                piezas[i][j] = new Pieza(tableroOriginal.piezas[i][j]);
+                if (piezas[i][j].color == 1)
+                {
+                    piezasBlancas[x] = piezas[i][j];
+                    x++;
+                }
+                if (piezas[i][j].color == 2)
+                {
+                    piezasNegras[y] = piezas[i][j];
+                    y++;
+                }
+                if (piezas[i][j].valor.equals("\u001b[37m\u2654\u001b[0m"))
+                {
+                    reyBlanco = piezas[i][j];
+                }
+                if (piezas[i][j].valor.equals("\u001b[31m\u265A\u001b[0m"))
+                {
+                    reyNegro = piezas[i][j];
+                }
+            }
+        }
+
+        jugadores = new Jugador[2];
+
+        jugadores[0] = new Jugador((byte)1, this, tableroOriginal.jugadores[0].estaEnJaque, piezasBlancas);
+        jugadores[1] = new Jugador((byte)2, this, tableroOriginal.jugadores[1].estaEnJaque, piezasNegras);
+
+        this.JaqueMate = tableroOriginal.JaqueMate;
+
+        this.turno = tableroOriginal.turno;
+    }
+
+    public Tablero copiarTablero()
+    {
+        Tablero nuevoTablero = new Tablero(this);
+        // nuevoTablero.imprimirTablero();
+        return nuevoTablero;
     }
 
     //Método para imprimir el Tablero
@@ -120,9 +175,18 @@ public class Tablero {
 
     public void cambiarTurno(short posicionPiezaX, short posicionPiezaY, short nuevaPosicionX, short nuevaPosicionY)
     {
+        if(JaqueMate)
+        {
+            return;
+        }
         // Si se cometió un error, cancela el turno y el jugador vuelve a repetir.
         if (!(jugadores[turno - 1].moverPieza(turno, posicionPiezaX, posicionPiezaY, nuevaPosicionX, nuevaPosicionY, piezas)))
         {
+//            if(terminarPartida(turno))
+//            {
+//                JaqueMate = true;
+//                return;
+//            }
             if(turno == 1)
                 System.out.println("Turno Blanco");
             if(turno == 2)
@@ -156,8 +220,66 @@ public class Tablero {
         }
     }
 
-    public void terminarPartida()
+    public boolean terminarPartida(byte turno)
     {
+        Tablero tableroFuturo = null;
 
+        if(turno == 1)
+        {
+            for(int i = 0; i<8; i++)
+            {
+                for (int j = 0; j<8; j++)
+                {
+                    tableroFuturo = copiarTablero();
+//                    if (!tableroFuturo.reyBlanco.validacionBasica(turno, tableroFuturo.reyBlanco.obtenerCoordenadaX(), tableroFuturo.reyBlanco.obtenerCoordenadaY(), i, j, tableroFuturo.piezas[i][j]))
+//                    {
+//                        continue;
+//                    }
+                    if(jugadores[turno-1].moverPieza(turno, (short)reyBlanco.obtenerCoordenadaX(), (short)reyBlanco.obtenerCoordenadaY(), (short)i, (short)j, tableroFuturo.piezas))
+                    {
+                        System.out.println("Todavia quedan movimientos disponibles para Jugador " + turno);
+                        return false;
+                    }
+//                    if (!tableroFuturo.reyBlanco.reyAliadoEstaEnJaque(turno, tableroFuturo.piezas, tableroFuturo))
+//                    {
+//                        System.out.println("Todavia quedan movimientos disponibles para Jugador " + turno);
+//                        return true;
+//                    }
+                }
+            }
+        }
+        if(turno == 2)
+        {
+            for(int i = 0; i<8; i++)
+            {
+                for (int j = 0; j<8; j++)
+                {
+                    tableroFuturo = copiarTablero();
+//                    if (!tableroFuturo.reyNegro.validacionBasica(turno, tableroFuturo.reyNegro.obtenerCoordenadaX(), tableroFuturo.reyNegro.obtenerCoordenadaY(), i, j, tableroFuturo.piezas[i][j]))
+//                    {
+//                        continue;
+//                    }
+                    if(jugadores[turno-1].moverPieza(turno, (short)reyNegro.obtenerCoordenadaX(), (short)reyNegro.obtenerCoordenadaY(), (short)i, (short)j, tableroFuturo.piezas))
+                    {
+                        System.out.println("Todavia quedan movimientos disponibles para Jugador " + turno);
+                        return false;
+                    }
+//                    if (!tableroFuturo.reyNegro.reyAliadoEstaEnJaque(turno, tableroFuturo.piezas, tableroFuturo))
+//                    {
+//                        System.out.println("Todavia quedan movimientos disponibles para Jugador " + turno);
+//                        return true;
+//                    }
+                }
+            }
+        }
+        if (turno == 1)
+        {
+            System.out.println("Ya no quedan movimientos disponibles. JAQUE MATE. GANÓ EL JUGADOR 2");
+        }
+        else
+        {
+            System.out.println("Ya no quedan movimientos disponibles. JAQUE MATE. GANÓ EL JUGADOR 1");
+        }
+        return true;
     }
 }

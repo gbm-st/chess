@@ -16,11 +16,18 @@ public class Jugador
         inicializarPiezas(turno);
     }
 
+    public Jugador(byte color, Tablero tablero, boolean estaEnJaque, Pieza[] piezasJugador)
+    {
+        this.tablero = tablero;
+        this.color = color;
+        this.piezasJugador = piezasJugador;
+        this.estaEnJaque = estaEnJaque;
+    }
+
     private void inicializarPiezas(byte turno)
     {
         if (turno == 1)
         {
-
             //*************BLANCOS*****************
             //Piezas de la fila 1
             piezasJugador[0] = new Torre( 3, 1, this);
@@ -85,6 +92,18 @@ public class Jugador
             return false;
         }
 
+//        if(tablero.jugadores[turno-1].estaEnJaque && tablero.terminarPartida(turno))
+//        {
+//            tablero.JaqueMate = true;
+//            return true;
+//        }
+
+//        if(!checarTodosLosMovimientosAliadosDisponibles(turno))
+//        {
+//            tablero.JaqueMate = true;
+//            return true;
+//        }
+
         // Mandar a llamar el método que contenga las reglas de la pieza y
         // verificar que las reglas se cumplan (ej. no te puedes saltar piezas excepto caballo,
         // no puedes ir adelante como alfil o diagonal como torre, etc.)
@@ -100,9 +119,36 @@ public class Jugador
             if (this == tablero.jugadores[0])
             {
                 tablero.jugadores[1].estaEnJaque = piezas[nuevaPosicionX][nuevaPosicionY].estaJaqueando(turno, piezas, tablero);
+
+                if(tablero.jugadores[1].estaEnJaque && tablero.terminarPartida((byte)2))
+                {
+                    tablero.JaqueMate = true;
+                    return true;
+                }
+//                if(!checarTodosLosMovimientosAliadosDisponibles((byte)2))
+//                {
+//                    tablero.JaqueMate = true;
+//                    return true;
+//                }
             } else if (this == tablero.jugadores[1]) {
                 tablero.jugadores[0].estaEnJaque = piezas[nuevaPosicionX][nuevaPosicionY].estaJaqueando(turno, piezas, tablero);
+                if(tablero.jugadores[0].estaEnJaque && tablero.terminarPartida((byte)1))
+                {
+                    tablero.JaqueMate = true;
+                    return true;
+                }
+//                if(!checarTodosLosMovimientosAliadosDisponibles((byte)1))
+//                {
+//                    tablero.JaqueMate = true;
+//                    return true;
+//                }
             }
+
+//            if(!checarTodosLosMovimientosAliadosDisponibles(turno))
+//            {
+//                tablero.JaqueMate = true;
+//                return true;
+//            }
 
             if (piezas[nuevaPosicionX][nuevaPosicionY].reyAliadoEstaEnJaque(turno, piezas, tablero))
             {
@@ -121,9 +167,35 @@ public class Jugador
             if (this == tablero.jugadores[0])
             {
                 tablero.jugadores[1].estaEnJaque = piezas[nuevaPosicionX][nuevaPosicionY].estaJaqueando(turno, piezas, tablero);
+                if(tablero.jugadores[1].estaEnJaque && tablero.terminarPartida((byte)2))
+                {
+                    tablero.JaqueMate = true;
+                    return true;
+                }
+//                if(!checarTodosLosMovimientosAliadosDisponibles((byte)2))
+//                {
+//                    tablero.JaqueMate = true;
+//                    return true;
+//                }
             } else if (this == tablero.jugadores[1]) {
                 tablero.jugadores[0].estaEnJaque = piezas[nuevaPosicionX][nuevaPosicionY].estaJaqueando(turno, piezas, tablero);
+                if(tablero.jugadores[0].estaEnJaque && tablero.terminarPartida((byte)1))
+                {
+                    tablero.JaqueMate = true;
+                    return true;
+                }
+//                if(!checarTodosLosMovimientosAliadosDisponibles((byte)1))
+//                {
+//                    tablero.JaqueMate = true;
+//                    return true;
+//                }
             }
+
+//            if(!checarTodosLosMovimientosAliadosDisponibles(turno))
+//            {
+//                tablero.JaqueMate = true;
+//                return true;
+//            }
 
             if (piezas[nuevaPosicionX][nuevaPosicionY].reyAliadoEstaEnJaque(turno, piezas, tablero))
             {
@@ -176,4 +248,74 @@ public class Jugador
 
         piezaEliminada.piezaMuerta = false;
     }
+
+//    public boolean checarSiSePuedeRealizarMovimientoAliadoEnJaqueReyEnemigo
+//    (Pieza[][] piezas, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX, int nuevaPosicionY, )
+//    {
+//        if (!estaEnJaque)
+//        {
+//            return true;
+//        }
+//
+//        return piezas[posicionPiezaX][posicionPiezaY].
+//
+//        return false;
+//    }
+
+//    public boolean checarTodosLosMovimientosAliadosDisponibles(byte turno)
+//    {
+//        Tablero copiaTablero = null;
+//
+//        int numeroMovimientosDisponibles = 0;
+//
+//        if(tablero.jugadores[turno-1].estaEnJaque)
+//        {
+//            return true;
+//        }
+//
+//        for(int i = 0; i < 8; i++)
+//        {
+//            copiaTablero = tablero.copiarTablero();
+//
+//            for(int j = 0; j < 8; j++)
+//            {
+//                for(int k = 0; k < 8; k++)
+//                {
+//                    if (turno == 1)
+//                    {
+//                        if (copiaTablero.jugadores[0].piezasJugador[i].piezaMuerta && !copiaTablero.jugadores[0].piezasJugador[i].validacionBasica(turno, copiaTablero.jugadores[0].piezasJugador[i].obtenerCoordenadaX(), copiaTablero.jugadores[0].piezasJugador[i].obtenerCoordenadaY(), j, k, copiaTablero.piezas[j][k]))
+//                        {
+//                            continue;
+//                        }
+//                        if (!copiaTablero.jugadores[0].piezasJugador[i].reyAliadoEstaEnJaque(turno, copiaTablero.piezas, copiaTablero))
+//                        {
+//                            System.out.println("Todavia quedan movimientos disponibles para Jugador " + turno);
+//                            return true;
+//                        }
+//                    }
+//                    if (turno == 2)
+//                    {
+//                        if (copiaTablero.jugadores[1].piezasJugador[i].piezaMuerta && !copiaTablero.jugadores[1].piezasJugador[i].validacionBasica(turno, copiaTablero.jugadores[1].piezasJugador[i].obtenerCoordenadaX(), copiaTablero.jugadores[1].piezasJugador[i].obtenerCoordenadaY(), j, k, copiaTablero.piezas[j][k]))
+//                        {
+//                            continue;
+//                        }
+//                        if (!copiaTablero.jugadores[1].piezasJugador[i].reyAliadoEstaEnJaque(turno, copiaTablero.piezas, copiaTablero))
+//                        {
+//                            System.out.println("Todavia quedan movimientos disponibles para Jugador " + turno);
+//                            return true;
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        if (turno == 1)
+//        {
+//            System.out.println("Ya no quedan movimientos disponibles. JAQUE MATE. GANÓ EL JUGADOR 2");
+//        }
+//        else
+//        {
+//            System.out.println("Ya no quedan movimientos disponibles. JAQUE MATE. GANÓ EL JUGADOR 1");
+//        }
+//        return false;
+//    }
 }

@@ -53,6 +53,15 @@ public class Pieza {
         this.color = color;
     }
 
+    public Pieza(Pieza piezaOriginal){
+        this.jugador = piezaOriginal.jugador;
+        this.valor = piezaOriginal.valor;
+        formato = "[ " + piezaOriginal.valor + " ]";
+        this.color = piezaOriginal.color;
+        this.coordenadaX = piezaOriginal.coordenadaX;
+        this.coordenadaY = piezaOriginal.coordenadaY;
+    }
+
     public void resetearPieza()
     {
         this.valor = Pieza.simbolos[0];

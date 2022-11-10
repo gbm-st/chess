@@ -7,7 +7,7 @@ public class Menu {
     public Menu(){
         Tablero tablero = new Tablero();
 
-        int variableTemporal = 0;
+        int cantidadDeTurnosDisponibles = 0;
 
         int posicionPiezaX;
         int posicionPiezaY;
@@ -19,7 +19,7 @@ public class Menu {
         // Hace falta cambiar esto para que termine cuando maten al rey
         while(true)
         {
-            variableTemporal += 1;
+            cantidadDeTurnosDisponibles += 1;
 
             // Hace falta poner try catch para validar
             System.out.print("Elije las coordenadas X  para elegir una pieza: ");
@@ -33,8 +33,14 @@ public class Menu {
 
             tablero.cambiarTurno((short)posicionPiezaX, (short)posicionPiezaY, (short)nuevaPosicionX, (short)nuevaPosicionY);
 
-            if (variableTemporal == 30)
+            if (tablero.JaqueMate)
             {
+                break;
+            }
+
+            if (cantidadDeTurnosDisponibles == 50)
+            {
+                System.out.println("El juego no puede acabar. Es un empate.");
                 break;
             }
         }
