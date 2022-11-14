@@ -43,7 +43,36 @@ public class Tablero {
         {
             for (int j = 0; j < 8; j++)
             {
-                piezas[i][j] = new Pieza(tableroOriginal.piezas[i][j]);
+                if (tableroOriginal.piezas[i][j] instanceof Alfil)
+                {
+                    piezas[i][j] = new Alfil((Alfil) tableroOriginal.piezas[i][j]);
+                }
+                else if (tableroOriginal.piezas[i][j] instanceof Caballo)
+                {
+                    piezas[i][j] = new Caballo((Caballo) tableroOriginal.piezas[i][j]);
+                }
+                else if (tableroOriginal.piezas[i][j] instanceof Peon)
+                {
+                    Peon peon = new Peon((Peon) tableroOriginal.piezas[i][j]);
+                    peon.darDistanciaMovimiento(((Peon) tableroOriginal.piezas[i][j]).obtenerDistanciaMovimiento());
+                    piezas[i][j] = peon;
+                }
+                else if (tableroOriginal.piezas[i][j] instanceof Reina)
+                {
+                    piezas[i][j] = new Reina((Reina)tableroOriginal.piezas[i][j]);
+                }
+                else if (tableroOriginal.piezas[i][j] instanceof Rey)
+                {
+                    piezas[i][j] = new Rey((Rey) tableroOriginal.piezas[i][j]);
+                }
+                else if (tableroOriginal.piezas[i][j] instanceof Torre)
+                {
+                    piezas[i][j] = new Torre((Torre) tableroOriginal.piezas[i][j]);
+                }
+                else
+                {
+                    piezas[i][j] = new Pieza(tableroOriginal.piezas[i][j]);
+                }
                 if (piezas[i][j].color == 1)
                 {
                     piezasBlancas[x] = piezas[i][j];
@@ -102,7 +131,8 @@ public class Tablero {
     }
 
     //Método para definir el estado inicial del tablero
-    public void inicializarTablero(){
+    public void inicializarTablero()
+    {
 
         jugadores = new Jugador[2];
 
@@ -175,10 +205,15 @@ public class Tablero {
 
     public void cambiarTurno(short posicionPiezaX, short posicionPiezaY, short nuevaPosicionX, short nuevaPosicionY)
     {
-        if(JaqueMate)
+        if((jugadores[0].estaEnJaque || jugadores[1].estaEnJaque) && terminarPartida(turno))
         {
+            JaqueMate = true;
             return;
         }
+//        if(JaqueMate)
+//        {
+//            return;
+//        }
         // Si se cometió un error, cancela el turno y el jugador vuelve a repetir.
         if (!(jugadores[turno - 1].moverPieza(turno, posicionPiezaX, posicionPiezaY, nuevaPosicionX, nuevaPosicionY, piezas)))
         {
@@ -188,9 +223,15 @@ public class Tablero {
 //                return;
 //            }
             if(turno == 1)
+            {
+                imprimirTablero();
                 System.out.println("Turno Blanco");
+            }
             if(turno == 2)
+            {
+                imprimirTablero();
                 System.out.println("Turno Negro");
+            }
             return;
         } // Se cambia de color/turno
         if (turno == 1)
@@ -224,21 +265,29 @@ public class Tablero {
     {
         Tablero tableroFuturo = null;
 
-        if(turno == 1)
+        for(int i = 0; i<16; i++)
         {
-            for(int i = 0; i<8; i++)
+            for (int j = 0; j<8; j++)
             {
-                for (int j = 0; j<8; j++)
+                for (int k = 0; k<8; k++)
                 {
                     tableroFuturo = copiarTablero();
+                    // System.out.println(tableroFuturo.jugadores[turno-1].piezasJugador[i]);
+                    // System.out.println("X: " + j + "Y: " + k);
+
 //                    if (!tableroFuturo.reyBlanco.validacionBasica(turno, tableroFuturo.reyBlanco.obtenerCoordenadaX(), tableroFuturo.reyBlanco.obtenerCoordenadaY(), i, j, tableroFuturo.piezas[i][j]))
 //                    {
 //                        continue;
 //                    }
-                    if(jugadores[turno-1].moverPieza(turno, (short)reyBlanco.obtenerCoordenadaX(), (short)reyBlanco.obtenerCoordenadaY(), (short)i, (short)j, tableroFuturo.piezas))
+                    try {
+                        if(tableroFuturo.jugadores[turno-1].moverPieza(turno, (short)tableroFuturo.jugadores[turno-1].piezasJugador[i].obtenerCoordenadaX(), (short)tableroFuturo.jugadores[turno-1].piezasJugador[i].obtenerCoordenadaY(), (short)j, (short)k, tableroFuturo.piezas))
+                        {
+                            System.out.println("Todavia quedan movimientos disponibles para Jugador " + turno);
+                            return false;
+                        }
+                    } catch(NullPointerException ignored)
                     {
-                        System.out.println("Todavia quedan movimientos disponibles para Jugador " + turno);
-                        return false;
+
                     }
 //                    if (!tableroFuturo.reyBlanco.reyAliadoEstaEnJaque(turno, tableroFuturo.piezas, tableroFuturo))
 //                    {
@@ -248,37 +297,13 @@ public class Tablero {
                 }
             }
         }
-        if(turno == 2)
-        {
-            for(int i = 0; i<8; i++)
-            {
-                for (int j = 0; j<8; j++)
-                {
-                    tableroFuturo = copiarTablero();
-//                    if (!tableroFuturo.reyNegro.validacionBasica(turno, tableroFuturo.reyNegro.obtenerCoordenadaX(), tableroFuturo.reyNegro.obtenerCoordenadaY(), i, j, tableroFuturo.piezas[i][j]))
-//                    {
-//                        continue;
-//                    }
-                    if(jugadores[turno-1].moverPieza(turno, (short)reyNegro.obtenerCoordenadaX(), (short)reyNegro.obtenerCoordenadaY(), (short)i, (short)j, tableroFuturo.piezas))
-                    {
-                        System.out.println("Todavia quedan movimientos disponibles para Jugador " + turno);
-                        return false;
-                    }
-//                    if (!tableroFuturo.reyNegro.reyAliadoEstaEnJaque(turno, tableroFuturo.piezas, tableroFuturo))
-//                    {
-//                        System.out.println("Todavia quedan movimientos disponibles para Jugador " + turno);
-//                        return true;
-//                    }
-                }
-            }
-        }
         if (turno == 1)
         {
-            System.out.println("Ya no quedan movimientos disponibles. JAQUE MATE. GANÓ EL JUGADOR 2");
+            System.out.println("Ya no quedan movimientos disponibles. JAQUE MATE. GANÓ EL JUGADOR NEGRO");
         }
         else
         {
-            System.out.println("Ya no quedan movimientos disponibles. JAQUE MATE. GANÓ EL JUGADOR 1");
+            System.out.println("Ya no quedan movimientos disponibles. JAQUE MATE. GANÓ EL JUGADOR BLANCO");
         }
         return true;
     }

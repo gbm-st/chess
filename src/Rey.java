@@ -6,6 +6,10 @@ public class Rey extends Pieza{
         super(simbolo, color, jugador);
     }
 
+    public Rey(Rey piezaOriginal) {
+        super(piezaOriginal);
+    }
+
     public boolean moverANuevaPosicion (byte turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX,
                                         int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal, Tablero tablero) {
 

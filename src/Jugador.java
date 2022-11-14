@@ -121,11 +121,11 @@ public class Jugador
             {
                 tablero.jugadores[1].estaEnJaque = piezas[nuevaPosicionX][nuevaPosicionY].estaJaqueando(turno, piezas, tablero);
 
-                if(tablero.jugadores[1].estaEnJaque && tablero.terminarPartida((byte)2))
-                {
-                    tablero.JaqueMate = true;
-                    return true;
-                }
+//                if(tablero.jugadores[1].estaEnJaque && tablero.terminarPartida((byte)2))
+//                {
+//                    tablero.JaqueMate = true;
+//                    return true;
+//                }
 //                if(!checarTodosLosMovimientosAliadosDisponibles((byte)2))
 //                {
 //                    tablero.JaqueMate = true;
@@ -133,11 +133,11 @@ public class Jugador
 //                }
             } else if (this == tablero.jugadores[1]) {
                 tablero.jugadores[0].estaEnJaque = piezas[nuevaPosicionX][nuevaPosicionY].estaJaqueando(turno, piezas, tablero);
-                if(tablero.jugadores[0].estaEnJaque && tablero.terminarPartida((byte)1))
-                {
-                    tablero.JaqueMate = true;
-                    return true;
-                }
+//                if(tablero.jugadores[0].estaEnJaque && tablero.terminarPartida((byte)1))
+//                {
+//                    tablero.JaqueMate = true;
+//                    return true;
+//                }
 //                if(!checarTodosLosMovimientosAliadosDisponibles((byte)1))
 //                {
 //                    tablero.JaqueMate = true;
@@ -168,11 +168,11 @@ public class Jugador
             if (this == tablero.jugadores[0])
             {
                 tablero.jugadores[1].estaEnJaque = piezas[nuevaPosicionX][nuevaPosicionY].estaJaqueando(turno, piezas, tablero);
-                if(tablero.jugadores[1].estaEnJaque && tablero.terminarPartida((byte)2))
-                {
-                    tablero.JaqueMate = true;
-                    return true;
-                }
+//                if(tablero.jugadores[1].estaEnJaque && tablero.terminarPartida((byte)2))
+//                {
+//                    tablero.JaqueMate = true;
+//                    return true;
+//                }
 //                if(!checarTodosLosMovimientosAliadosDisponibles((byte)2))
 //                {
 //                    tablero.JaqueMate = true;
@@ -180,11 +180,11 @@ public class Jugador
 //                }
             } else if (this == tablero.jugadores[1]) {
                 tablero.jugadores[0].estaEnJaque = piezas[nuevaPosicionX][nuevaPosicionY].estaJaqueando(turno, piezas, tablero);
-                if(tablero.jugadores[0].estaEnJaque && tablero.terminarPartida((byte)1))
-                {
-                    tablero.JaqueMate = true;
-                    return true;
-                }
+//                if(tablero.jugadores[0].estaEnJaque && tablero.terminarPartida((byte)1))
+//                {
+//                    tablero.JaqueMate = true;
+//                    return true;
+//                }
 //                if(!checarTodosLosMovimientosAliadosDisponibles((byte)1))
 //                {
 //                    tablero.JaqueMate = true;

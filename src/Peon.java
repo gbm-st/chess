@@ -6,6 +6,10 @@ public class Peon extends Pieza
         super(simbolo, color, jugador);
     }
 
+    public Peon(Peon piezaOriginal) {
+        super(piezaOriginal);
+    }
+
     public int obtenerDistanciaMovimiento()
     {
         return distanciaMovimiento;
@@ -22,7 +26,14 @@ public class Peon extends Pieza
         if (distanciaMovimiento == 3)
         {
             boolean resultado = movimientoTurno(turno, posicionPiezaX, posicionPiezaY, nuevaPosicionX, nuevaPosicionY, piezas, variableNuevaPosicionTemporal);
-            distanciaMovimiento = 2;
+            if(resultado)
+            {
+                distanciaMovimiento = 2;
+            }
+            else
+            {
+                distanciaMovimiento = 3;
+            }
             return resultado;
         }
         else
@@ -37,13 +48,15 @@ public class Peon extends Pieza
         if(turno == 1)
         {
             if((nuevaPosicionX - posicionPiezaX) > -distanciaMovimiento
+                    && ((nuevaPosicionX - posicionPiezaX) < 0)
                     && (posicionPiezaY - nuevaPosicionY == 0)
                     && piezas[nuevaPosicionX][nuevaPosicionY].color == 0)
             {
                 return true;
             }
             else if ((nuevaPosicionX - posicionPiezaX) > -distanciaMovimiento
-                    && (posicionPiezaY - nuevaPosicionY <= 1 || posicionPiezaY - nuevaPosicionY >= -1)
+                    && (nuevaPosicionX - posicionPiezaX) != 0
+                    && ((posicionPiezaY - nuevaPosicionY <= 1) && (posicionPiezaY - nuevaPosicionY >= -1))
                     && (posicionPiezaY - nuevaPosicionY != 0)
                     && piezas[nuevaPosicionX][nuevaPosicionY].color == 2)
             {
@@ -53,13 +66,15 @@ public class Peon extends Pieza
         else if (turno == 2)
         {
             if((nuevaPosicionX - posicionPiezaX) < distanciaMovimiento
+                    && ((nuevaPosicionX - posicionPiezaX) > 0)
                     && (posicionPiezaY - nuevaPosicionY == 0)
                     && piezas[nuevaPosicionX][nuevaPosicionY].color == 0)
             {
                 return true;
             }
             else if ((nuevaPosicionX - posicionPiezaX) < distanciaMovimiento
-                    && (posicionPiezaY - nuevaPosicionY <= 1 || posicionPiezaY - nuevaPosicionY >= -1)
+                    && (nuevaPosicionX - posicionPiezaX) != 0
+                    && ((posicionPiezaY - nuevaPosicionY <= 1) && (posicionPiezaY - nuevaPosicionY >= -1))
                     && (posicionPiezaY - nuevaPosicionY != 0)
                     && piezas[nuevaPosicionX][nuevaPosicionY].color == 1)
             {
