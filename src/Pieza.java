@@ -21,18 +21,18 @@ public class Pieza {
 
     public boolean piezaMuerta;
     protected static final String[] simbolos = {" ",
-                                                "\u001b[37m\u2654\u001b[0m",
-                                                "\u001b[37m\u2655\u001b[0m",
-                                                "\u001b[37m\u2656\u001b[0m",
-                                                "\u001b[37m\u2657\u001b[0m",
-                                                "\u001b[37m\u2658\u001b[0m",
-                                                "\u001b[37m\u2659\u001b[0m",
-                                                "\u001b[31m\u265A\u001b[0m",
-                                                "\u001b[31m\u265B\u001b[0m",
-                                                "\u001b[31m\u265C\u001b[0m",
-                                                "\u001b[31m\u265D\u001b[0m",
-                                                "\u001b[31m\u265E\u001b[0m",
-                                                "\u001b[31m\u2659\u001b[0m"};
+                                                "\u001b[38;5;160mK",
+                                                "\u001b[38;5;160mQ",
+                                                "\u001b[38;5;160mR",
+                                                "\u001b[38;5;160mB",
+                                                "\u001b[38;5;160mH",
+                                                "\u001b[38;5;160mP",
+                                                "\u001b[38;5;21mK",
+                                                "\u001b[38;5;21mQ",
+                                                "\u001b[38;5;21mR",
+                                                "\u001b[38;5;21mB",
+                                                "\u001b[38;5;21mH",
+                                                "\u001b[38;5;21mP"};
     //Variable para el valor unicode de las piezas individuales
     protected String valor;
     //Variable para el formato de impresión de las piezas
@@ -49,14 +49,14 @@ public class Pieza {
     public Pieza(int simbolo, int color, Jugador jugador){
         this.jugador = jugador;
         this.valor = Pieza.simbolos[simbolo];
-        formato = "[ " + valor + " ]";
+        formato = "  " + valor + "  ";
         this.color = color;
     }
 
     public Pieza(Pieza piezaOriginal){
         this.jugador = piezaOriginal.jugador;
         this.valor = piezaOriginal.valor;
-        formato = "[ " + piezaOriginal.valor + " ]";
+        formato = "  " + piezaOriginal.valor + "  ";
         this.color = piezaOriginal.color;
         this.coordenadaX = piezaOriginal.coordenadaX;
         this.coordenadaY = piezaOriginal.coordenadaY;
@@ -65,7 +65,7 @@ public class Pieza {
     public void resetearPieza()
     {
         this.valor = Pieza.simbolos[0];
-        this.formato = "[ " + this.valor + " ]";
+        this.formato = "  " + this.valor + "  ";
         this.color = 0;
         this.jugador = null;
     }

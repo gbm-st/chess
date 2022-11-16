@@ -113,19 +113,27 @@ public class Tablero {
 
     //Método para imprimir el Tablero
     public void imprimirTablero() {
+        boolean esCasillaBlanca = false; //Variable para identificar si la siguiente casilla a imprimir es blanca
         for (int x = 0; x < 8; x++) {
+            esCasillaBlanca = !esCasillaBlanca; //Cambio de color para la siguiente casilla a imprimir
             System.out.print("\n" + ejeY[x] + "\t");
             for (int y = 0; y < 8; y++) {
                 String valor = piezas[x][y].getValor();
                 String formato = piezas[x][y].getFormato();
-                System.out.print(formato + "\t");
+                if(esCasillaBlanca){
+                    System.out.print("\u001b[47m" + formato + "\u001b[0m"); //Imprime casilla blanca
+                } else
+                {
+                    System.out.print("\u001b[40m" + formato + "\u001b[0m"); //Imprime casilla negra
+                }
+                esCasillaBlanca = !esCasillaBlanca; //Cambio de color para la siguiente casilla a imprimir
             }
         }
         System.out.println("");
         System.out.print("\t");
 
         for (int x = 0; x < 8; x++) {
-            System.out.print(ejeX[x] + "\t");
+            System.out.print(ejeX[x]);
         }
         System.out.println();
     }
