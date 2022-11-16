@@ -21,18 +21,18 @@ public class Pieza {
 
     public boolean piezaMuerta;
     protected static final String[] simbolos = {" ",
-                                                "\u001b[38;5;160mK",
-                                                "\u001b[38;5;160mQ",
-                                                "\u001b[38;5;160mR",
-                                                "\u001b[38;5;160mB",
-                                                "\u001b[38;5;160mH",
-                                                "\u001b[38;5;160mP",
-                                                "\u001b[38;5;21mK",
-                                                "\u001b[38;5;21mQ",
-                                                "\u001b[38;5;21mR",
-                                                "\u001b[38;5;21mB",
-                                                "\u001b[38;5;21mH",
-                                                "\u001b[38;5;21mP"};
+                                                "\u001b[38;5;230mK",
+                                                "\u001b[38;5;230mQ",
+                                                "\u001b[38;5;230mR",
+                                                "\u001b[38;5;230mB",
+                                                "\u001b[38;5;230mH",
+                                                "\u001b[38;5;230mP",
+                                                "\u001b[30;1mK",
+                                                "\u001b[30;1mQ",
+                                                "\u001b[30;1mR",
+                                                "\u001b[30;1mB",
+                                                "\u001b[30;1mH",
+                                                "\u001b[30;1mP"};
     //Variable para el valor unicode de las piezas individuales
     protected String valor;
     //Variable para el formato de impresión de las piezas

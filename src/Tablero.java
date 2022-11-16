@@ -124,7 +124,7 @@ public class Tablero {
                     System.out.print("\u001b[47m" + formato + "\u001b[0m"); //Imprime casilla blanca
                 } else
                 {
-                    System.out.print("\u001b[40m" + formato + "\u001b[0m"); //Imprime casilla negra
+                    System.out.print("\u001b[48;5;58m" + formato + "\u001b[0m"); //Imprime casilla oscura
                 }
                 esCasillaBlanca = !esCasillaBlanca; //Cambio de color para la siguiente casilla a imprimir
             }
