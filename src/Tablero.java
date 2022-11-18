@@ -307,10 +307,12 @@ public class Tablero {
         }
         if (turno == 1)
         {
+            imprimirTablero();
             System.out.println("Ya no quedan movimientos disponibles. JAQUE MATE. GANÓ EL JUGADOR NEGRO");
         }
         else
         {
+            imprimirTablero();
             System.out.println("Ya no quedan movimientos disponibles. JAQUE MATE. GANÓ EL JUGADOR BLANCO");
         }
         return true;

@@ -174,20 +174,25 @@ public class Alfil extends Pieza{
 
         for(Pieza piezaEnemiga: piezasEnemigas)
         {
-            if (piezaEnemiga.valor == Pieza.simbolos[6] || piezaEnemiga.valor == Pieza.simbolos[12])
-            {
-                distanciaMovimientoPeon = ((Peon)piezaEnemiga).obtenerDistanciaMovimiento();
-            }
+            try {
+                if (piezaEnemiga.valor == Pieza.simbolos[6] || piezaEnemiga.valor == Pieza.simbolos[12])
+                {
+                    distanciaMovimientoPeon = ((Peon)piezaEnemiga).obtenerDistanciaMovimiento();
+                }
 
-            if (!piezaEnemiga.piezaMuerta && piezaEnemiga.estaJaqueando(turno, piezas, tablero))
-            {
-                System.out.println("No puedes moverte aquí porque están jaqueando a aliado.");
-                return true;
-            }
+                if (!piezaEnemiga.piezaMuerta && piezaEnemiga.estaJaqueando(turno, piezas, tablero))
+                {
+                    System.out.println("No puedes moverte aquí porque están jaqueando a aliado.");
+                    return true;
+                }
 
-            if (piezaEnemiga.valor == Pieza.simbolos[6] || piezaEnemiga.valor == Pieza.simbolos[12])
+                if (piezaEnemiga.valor == Pieza.simbolos[6] || piezaEnemiga.valor == Pieza.simbolos[12])
+                {
+                    ((Peon)piezaEnemiga).darDistanciaMovimiento(distanciaMovimientoPeon);
+                }
+            } catch (NullPointerException ignored)
             {
-                ((Peon)piezaEnemiga).darDistanciaMovimiento(distanciaMovimientoPeon);
+
             }
         }
 
