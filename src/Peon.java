@@ -1,9 +1,16 @@
+import java.util.Objects;
+
 public class Peon extends Pieza
 {
     int distanciaMovimiento = 3;
     public Peon(int simbolo, int color, Jugador jugador)
     {
         super(simbolo, color, jugador);
+    }
+
+    public Peon(int simbolo, int color, Jugador jugador, int coordenadaX, int coordenadaY)
+    {
+        super(simbolo, color, jugador, coordenadaX, coordenadaY);
     }
 
     public Peon(Peon piezaOriginal) {
@@ -21,11 +28,11 @@ public class Peon extends Pieza
     }
 
     public boolean moverANuevaPosicion (byte turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX,
-                                        int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal, Tablero tablero)
+                                        int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal, Tablero tablero, boolean mostrarMensaje)
     {
         if (distanciaMovimiento == 3)
         {
-            boolean resultado = movimientoTurno(turno, posicionPiezaX, posicionPiezaY, nuevaPosicionX, nuevaPosicionY, piezas, variableNuevaPosicionTemporal);
+            boolean resultado = movimientoTurno(turno, posicionPiezaX, posicionPiezaY, nuevaPosicionX, nuevaPosicionY, piezas, variableNuevaPosicionTemporal, mostrarMensaje);
             if(resultado)
             {
                 distanciaMovimiento = 2;
@@ -38,12 +45,12 @@ public class Peon extends Pieza
         }
         else
         {
-            return movimientoTurno(turno, posicionPiezaX, posicionPiezaY, nuevaPosicionX, nuevaPosicionY, piezas, variableNuevaPosicionTemporal);
+            return movimientoTurno(turno, posicionPiezaX, posicionPiezaY, nuevaPosicionX, nuevaPosicionY, piezas, variableNuevaPosicionTemporal, mostrarMensaje);
         }
     }
 
     private boolean movimientoTurno(byte turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX,
-                             int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal)
+                             int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal, boolean mostrarMensaje)
     {
         if(turno == 1)
         {
@@ -54,7 +61,7 @@ public class Peon extends Pieza
             {
                 return true;
             }
-            else if ((nuevaPosicionX - posicionPiezaX) > -distanciaMovimiento
+            else if ((nuevaPosicionX - posicionPiezaX) > -distanciaMovimiento && distanciaMovimiento != 3
                     && (nuevaPosicionX - posicionPiezaX) != 0
                     && ((posicionPiezaY - nuevaPosicionY <= 1) && (posicionPiezaY - nuevaPosicionY >= -1))
                     && (posicionPiezaY - nuevaPosicionY != 0)
@@ -72,7 +79,7 @@ public class Peon extends Pieza
             {
                 return true;
             }
-            else if ((nuevaPosicionX - posicionPiezaX) < distanciaMovimiento
+            else if ((nuevaPosicionX - posicionPiezaX) < distanciaMovimiento && distanciaMovimiento != 3
                     && (nuevaPosicionX - posicionPiezaX) != 0
                     && ((posicionPiezaY - nuevaPosicionY <= 1) && (posicionPiezaY - nuevaPosicionY >= -1))
                     && (posicionPiezaY - nuevaPosicionY != 0)
@@ -82,11 +89,14 @@ public class Peon extends Pieza
             }
         }
 
-        System.out.println("No se puede mover el peón a esta posición.");
+        if (mostrarMensaje)
+        {
+            System.out.println("No se puede mover el peón a esta posición.");
+        }
         return false;
     }
 
-    public boolean reyAliadoEstaEnJaque(byte turno, Pieza[][] piezas, Tablero tablero)
+    public boolean reyAliadoEstaEnJaque(byte turno, Pieza[][] piezas, Tablero tablero, boolean mostrarMensaje)
     {
         Pieza[] piezasEnemigas;
 
@@ -113,8 +123,6 @@ public class Peon extends Pieza
 
         for(Pieza piezaEnemiga: piezasEnemigas)
         {
-            // System.out.println(piezaEnemiga);
-
             try
             {
                 if (piezaEnemiga.valor == Pieza.simbolos[6] || piezaEnemiga.valor == Pieza.simbolos[12])
@@ -122,9 +130,12 @@ public class Peon extends Pieza
                     distanciaMovimientoPeon = ((Peon)piezaEnemiga).obtenerDistanciaMovimiento();
                 }
 
-                if (!piezaEnemiga.piezaMuerta && piezaEnemiga.estaJaqueando(turno, piezas, tablero))
+                if (!piezaEnemiga.piezaMuerta && piezaEnemiga.estaJaqueando(turno, piezas, tablero, mostrarMensaje))
                 {
-                    System.out.println("No puedes moverte aquí porque están jaqueando a aliado.");
+                    if (mostrarMensaje)
+                    {
+                        System.out.println("No puedes moverte aquí porque están jaqueando a aliado.");
+                    }
                     return true;
                 }
 
@@ -138,24 +149,45 @@ public class Peon extends Pieza
             }
         }
 
-        System.out.println("No se esta jaqueando a aliado.");
+        if (mostrarMensaje)
+        {
+            System.out.println("No se esta jaqueando a aliado.");
+        }
         return false;
     }
 
-    public boolean estaJaqueando(byte turno, Pieza[][] piezas, Tablero tablero)
+    public boolean estaJaqueando(byte turno, Pieza[][] piezas, Tablero tablero, boolean mostrarMensaje)
     {
+        Pieza[] piezasJugador;
         Pieza reyEnemigo = null;
-        if(turno == 1 && turno != 0)
+        if(turno == 1)
         {
-            reyEnemigo = tablero.reyNegro;
-        } else if (turno == 2 && turno != 0){
-            reyEnemigo = tablero.reyBlanco;
+            piezasJugador = tablero.jugadores[1].piezasJugador;
+        } else {
+            piezasJugador = tablero.jugadores[0].piezasJugador;
+        }
+
+        for (Pieza pieza: piezasJugador)
+        {
+            try {
+                if (Objects.equals(pieza.valor, Pieza.simbolos[1]) || Objects.equals(pieza.valor, Pieza.simbolos[7]))
+                {
+                    reyEnemigo = pieza;
+                    break;
+                }
+            }catch (NullPointerException ignored)
+            {
+
+            }
         }
 
         boolean jaque = moverANuevaPosicion(turno, this.obtenerCoordenadaX(), this.obtenerCoordenadaY(), reyEnemigo.obtenerCoordenadaX(),
-                reyEnemigo.obtenerCoordenadaY(), piezas, reyEnemigo, tablero);
+                reyEnemigo.obtenerCoordenadaY(), piezas, reyEnemigo, tablero, mostrarMensaje);
 
-        System.out.println("¿Es jaque? " + jaque);
+        if (mostrarMensaje)
+        {
+            System.out.println("¿Es jaque? " + jaque);
+        }
 
         return jaque;
     }

@@ -53,6 +53,15 @@ public class Pieza {
         this.color = color;
     }
 
+    public Pieza(int simbolo, int color, Jugador jugador, int coordenadaX, int coordenadaY){
+        this.jugador = jugador;
+        this.valor = Pieza.simbolos[simbolo];
+        formato = "  " + valor + "  ";
+        this.color = color;
+        this.coordenadaX = coordenadaX;
+        this.coordenadaY = coordenadaY;
+    }
+
     public Pieza(Pieza piezaOriginal){
         this.jugador = piezaOriginal.jugador;
         this.valor = piezaOriginal.valor;
@@ -82,22 +91,32 @@ public class Pieza {
         return getValor();
     }
 
-    public boolean validacionBasica (byte turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX, int nuevaPosicionY, Pieza variableNuevaPosicionTemporal)
+    public boolean validacionBasica (byte turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX, int nuevaPosicionY, Pieza variableNuevaPosicionTemporal, boolean mostrarMensaje)
     {
         // Validar que no elija vacío o color contrario, validar que se coma al color contrario
         // Validar que no se coma a pieza con el mismo color
 
         if (this.color == 0) {
-            System.out.println("No puedes mover espacios vacios.");
+            if (mostrarMensaje)
+            {
+                System.out.println("No puedes mover espacios vacios.");
+            }
             return false;
         }
         if ((this.color == 1 && turno == 2) || (this.color == 2 && turno == 1)) {
-            System.out.println("No puedes mover una pieza de color distinto al tuyo.");
+            if (mostrarMensaje)
+            {
+                System.out.println("No puedes mover una pieza de color distinto al tuyo.");
+            }
             return false;
         }
         if ((this.color == 1 && variableNuevaPosicionTemporal.color == 1) ||
-                (this.color == 2 && variableNuevaPosicionTemporal.color == 2)) {
-            System.out.println("No puedes comerte a una pieza del mismo color.");
+                (this.color == 2 && variableNuevaPosicionTemporal.color == 2))
+        {
+            if (mostrarMensaje)
+            {
+                System.out.println("No puedes comerte a una pieza del mismo color.");
+            }
             return false;
         }
 
@@ -106,17 +125,17 @@ public class Pieza {
 
     // Método base para realizar polimorfismo.
     public boolean moverANuevaPosicion(byte turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX,
-                                       int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal, Tablero tablero)
+                                       int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal, Tablero tablero, boolean mostrarMensaje)
     {
         return false;
     }
 
-    public boolean reyAliadoEstaEnJaque(byte turno, Pieza[][] piezas, Tablero tablero)
+    public boolean reyAliadoEstaEnJaque(byte turno, Pieza[][] piezas, Tablero tablero, boolean mostrarMensaje)
     {
         return false;
     }
 
-    public boolean estaJaqueando(byte turno, Pieza[][] piezas, Tablero tablero)
+    public boolean estaJaqueando(byte turno, Pieza[][] piezas, Tablero tablero, boolean mostrarMensaje)
     {
         return false;
     }

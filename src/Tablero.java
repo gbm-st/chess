@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Tablero {
     //Variable para el arreglo de las piezas
     final Pieza[][] piezas;
@@ -83,11 +81,11 @@ public class Tablero {
                     piezasNegras[y] = piezas[i][j];
                     y++;
                 }
-                if (piezas[i][j].valor.equals("\u001b[37m\u2654\u001b[0m"))
+                if (piezas[i][j].valor.equals(Pieza.simbolos[1]))
                 {
                     reyBlanco = piezas[i][j];
                 }
-                if (piezas[i][j].valor.equals("\u001b[31m\u265A\u001b[0m"))
+                if (piezas[i][j].valor.equals(Pieza.simbolos[7]))
                 {
                     reyNegro = piezas[i][j];
                 }
@@ -161,26 +159,26 @@ public class Tablero {
         piezas[0][6] = piezasJugadorNegro[6];
         piezas[0][7] = piezasJugadorNegro[7];
 
-        piezas[0][0].asignarCoordenadas(0, 0);
-        piezas[0][1].asignarCoordenadas(0, 1);
-        piezas[0][2].asignarCoordenadas(0, 2);
-        piezas[0][3].asignarCoordenadas(0, 3);
-        piezas[0][4].asignarCoordenadas(0, 4);
-        piezas[0][5].asignarCoordenadas(0, 5);
-        piezas[0][6].asignarCoordenadas(0, 6);
-        piezas[0][7].asignarCoordenadas(0, 7);
+//        piezas[0][0].asignarCoordenadas(0, 0);
+//        piezas[0][1].asignarCoordenadas(0, 1);
+//        piezas[0][2].asignarCoordenadas(0, 2);
+//        piezas[0][3].asignarCoordenadas(0, 3);
+//        piezas[0][4].asignarCoordenadas(0, 4);
+//        piezas[0][5].asignarCoordenadas(0, 5);
+//        piezas[0][6].asignarCoordenadas(0, 6);
+//        piezas[0][7].asignarCoordenadas(0, 7);
 
         //Piezas de la fila 7
         for(int x = 0, y = 8; x < 8; x++, y++) {
             piezas[1][x] = piezasJugadorNegro[y];
-            piezas[1][x].asignarCoordenadas(1, x);
+//            piezas[1][x].asignarCoordenadas(1, x);
         }
 
         //Espacios vacíos
         for(int x = 2; x < 6; x++){
             for(int y = 0; y < 8; y++){
-                piezas[x][y] = new Pieza(0, 0, null);
-                piezas[x][y].asignarCoordenadas(x, y);
+                piezas[x][y] = new Pieza(0, 0, null, x, y);
+//                piezas[x][y].asignarCoordenadas(x, y);
             }
         }
 
@@ -188,7 +186,7 @@ public class Tablero {
         //Piezas de la fila 2
         for(int x = 0, y = 8; x < 8; x++, y++) {
             piezas[6][x] = piezasJugadorBlanco[y];
-            piezas[6][x].asignarCoordenadas(6, x);
+//            piezas[6][x].asignarCoordenadas(6, x);
         }
 
         //Piezas de la fila 1
@@ -201,29 +199,30 @@ public class Tablero {
         piezas[7][6] = piezasJugadorBlanco[6];
         piezas[7][7] = piezasJugadorBlanco[7];
 
-        piezas[7][0].asignarCoordenadas(7, 0);
-        piezas[7][1].asignarCoordenadas(7, 1);
-        piezas[7][2].asignarCoordenadas(7, 2);
-        piezas[7][3].asignarCoordenadas(7, 3);
-        piezas[7][4].asignarCoordenadas(7, 4);
-        piezas[7][5].asignarCoordenadas(7, 5);
-        piezas[7][6].asignarCoordenadas(7, 6);
-        piezas[7][7].asignarCoordenadas(7, 7);
+//        piezas[7][0].asignarCoordenadas(7, 0);
+//        piezas[7][1].asignarCoordenadas(7, 1);
+//        piezas[7][2].asignarCoordenadas(7, 2);
+//        piezas[7][3].asignarCoordenadas(7, 3);
+//        piezas[7][4].asignarCoordenadas(7, 4);
+//        piezas[7][5].asignarCoordenadas(7, 5);
+//        piezas[7][6].asignarCoordenadas(7, 6);
+//        piezas[7][7].asignarCoordenadas(7, 7);
     }
 
     public void cambiarTurno(short posicionPiezaX, short posicionPiezaY, short nuevaPosicionX, short nuevaPosicionY)
     {
-        if((jugadores[0].estaEnJaque || jugadores[1].estaEnJaque) && terminarPartida(turno))
-        {
-            JaqueMate = true;
-            return;
-        }
+//        if((jugadores[0].estaEnJaque || jugadores[1].estaEnJaque) && terminarPartida(turno))
+//        {
+//            JaqueMate = true;
+//            return;
+//        }
+
 //        if(JaqueMate)
 //        {
 //            return;
 //        }
         // Si se cometió un error, cancela el turno y el jugador vuelve a repetir.
-        if (!(jugadores[turno - 1].moverPieza(turno, posicionPiezaX, posicionPiezaY, nuevaPosicionX, nuevaPosicionY, piezas)))
+        if (!(jugadores[turno - 1].moverPieza(turno, posicionPiezaX, posicionPiezaY, nuevaPosicionX, nuevaPosicionY, piezas, true)))
         {
 //            if(terminarPartida(turno))
 //            {
@@ -269,6 +268,11 @@ public class Tablero {
         }
     }
 
+    public byte getTurno()
+    {
+        return turno;
+    }
+
     public boolean terminarPartida(byte turno)
     {
         Tablero tableroFuturo = null;
@@ -288,7 +292,7 @@ public class Tablero {
 //                        continue;
 //                    }
                     try {
-                        if(tableroFuturo.jugadores[turno-1].moverPieza(turno, (short)tableroFuturo.jugadores[turno-1].piezasJugador[i].obtenerCoordenadaX(), (short)tableroFuturo.jugadores[turno-1].piezasJugador[i].obtenerCoordenadaY(), (short)j, (short)k, tableroFuturo.piezas))
+                        if(tableroFuturo.jugadores[turno-1].moverPieza(turno, (short)tableroFuturo.jugadores[turno-1].piezasJugador[i].obtenerCoordenadaX(), (short)tableroFuturo.jugadores[turno-1].piezasJugador[i].obtenerCoordenadaY(), (short)j, (short)k, tableroFuturo.piezas, false))
                         {
                             System.out.println("Todavia quedan movimientos disponibles para Jugador " + turno);
                             return false;
@@ -307,12 +311,10 @@ public class Tablero {
         }
         if (turno == 1)
         {
-            imprimirTablero();
             System.out.println("Ya no quedan movimientos disponibles. JAQUE MATE. GANÓ EL JUGADOR NEGRO");
         }
         else
         {
-            imprimirTablero();
             System.out.println("Ya no quedan movimientos disponibles. JAQUE MATE. GANÓ EL JUGADOR BLANCO");
         }
         return true;

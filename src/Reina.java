@@ -7,12 +7,17 @@ public class Reina extends Pieza
         super(simbolo, color, jugador);
     }
 
+    public Reina(int simbolo, int color, Jugador jugador, int coordenadaX, int coordenadaY)
+    {
+        super(simbolo, color, jugador, coordenadaX, coordenadaY);
+    }
+
     public Reina(Reina piezaOriginal) {
         super(piezaOriginal);
     }
 
     public boolean moverANuevaPosicion (byte turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX,
-                                        int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal, Tablero tablero)
+                                        int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal, Tablero tablero, boolean mostrarMensaje)
     {
         if (((posicionPiezaX - nuevaPosicionX > 0) && (posicionPiezaY - nuevaPosicionY > 0))
                 || ((posicionPiezaX - nuevaPosicionX < 0) && (posicionPiezaY - nuevaPosicionY < 0))
@@ -20,16 +25,16 @@ public class Reina extends Pieza
                 || ((posicionPiezaX - nuevaPosicionX > 0) && (posicionPiezaY - nuevaPosicionY < 0)))
         {
             return movimientosAlfil(turno, posicionPiezaX, posicionPiezaY, nuevaPosicionX,
-                    nuevaPosicionY, piezas, variableNuevaPosicionTemporal);
+                    nuevaPosicionY, piezas, variableNuevaPosicionTemporal, mostrarMensaje);
         }
         else {
             return movimientosTorre(turno, posicionPiezaX, posicionPiezaY, nuevaPosicionX,
-                    nuevaPosicionY, piezas, variableNuevaPosicionTemporal);
+                    nuevaPosicionY, piezas, variableNuevaPosicionTemporal, mostrarMensaje);
         }
     }
 
     public boolean movimientosAlfil(byte turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX,
-                                    int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal)
+                                    int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal, boolean mostrarMensaje)
     {
         Pieza temporalReina = piezas[posicionPiezaX][posicionPiezaY];
         int posicionOriginalX = posicionPiezaX;
@@ -43,13 +48,16 @@ public class Reina extends Pieza
                         && (piezas[posicionPiezaX - 1][posicionPiezaY - 1].color == 0
                         || piezas[posicionPiezaX - 1][posicionPiezaY - 1].color != turno)) {
                     temporalReina = piezas[posicionPiezaX -= 1][posicionPiezaY -= 1];
-                    if (!validarSiPiezaNoEsAlcanzable(turno, temporalReina, piezas, nuevaPosicionX, nuevaPosicionY))
+                    if (!validarSiPiezaNoEsAlcanzable(turno, temporalReina, piezas, nuevaPosicionX, nuevaPosicionY, mostrarMensaje))
                     {
                         return false;
                     }
                 } else if ((posicionPiezaX - nuevaPosicionX > 0) && (posicionPiezaY - nuevaPosicionY > 0)
                         && (piezas[posicionPiezaX - 1][posicionPiezaY - 1].color == turno)) {
-                    System.out.println("Esta reina no puede seguir este camino porque está siendo bloqueada por una pieza aliada.");
+                    if (mostrarMensaje)
+                    {
+                        System.out.println("Esta reina no puede seguir este camino porque está siendo bloqueada por una pieza aliada.");
+                    }
                     return false;
                 }
                 // Abajo derecha
@@ -57,13 +65,16 @@ public class Reina extends Pieza
                         && (piezas[posicionPiezaX + 1][posicionPiezaY + 1].color == 0
                         || piezas[posicionPiezaX + 1][posicionPiezaY + 1].color != turno)) {
                     temporalReina = piezas[posicionPiezaX += 1][posicionPiezaY += 1];
-                    if (!validarSiPiezaNoEsAlcanzable(turno, temporalReina, piezas, nuevaPosicionX, nuevaPosicionY))
+                    if (!validarSiPiezaNoEsAlcanzable(turno, temporalReina, piezas, nuevaPosicionX, nuevaPosicionY, mostrarMensaje))
                     {
                         return false;
                     }
                 } else if ((posicionPiezaX - nuevaPosicionX < 0) && (posicionPiezaY - nuevaPosicionY < 0)
                         && (piezas[posicionPiezaX + 1][posicionPiezaY + 1].color == turno)) {
-                    System.out.println("Esta reina no puede seguir este camino porque está siendo bloqueada por una pieza aliada.");
+                    if (mostrarMensaje)
+                    {
+                        System.out.println("Esta reina no puede seguir este camino porque está siendo bloqueada por una pieza aliada.");
+                    }
                     return false;
                 }
                 // Arriba derecha
@@ -71,13 +82,16 @@ public class Reina extends Pieza
                         && (piezas[posicionPiezaX - 1][posicionPiezaY + 1].color == 0
                         || piezas[posicionPiezaX - 1][posicionPiezaY + 1].color != turno)) {
                     temporalReina = piezas[posicionPiezaX -= 1][posicionPiezaY += 1];
-                    if (!validarSiPiezaNoEsAlcanzable(turno, temporalReina, piezas, nuevaPosicionX, nuevaPosicionY))
+                    if (!validarSiPiezaNoEsAlcanzable(turno, temporalReina, piezas, nuevaPosicionX, nuevaPosicionY, mostrarMensaje))
                     {
                         return false;
                     }
                 } else if ((posicionPiezaX - nuevaPosicionX > 0) && (posicionPiezaY - nuevaPosicionY < 0)
                         && (piezas[posicionPiezaX - 1][posicionPiezaY + 1].color == turno)) {
-                    System.out.println("Esta reina no puede seguir este camino porque está siendo bloqueada por una pieza aliada.");
+                    if (mostrarMensaje)
+                    {
+                        System.out.println("Esta reina no puede seguir este camino porque está siendo bloqueada por una pieza aliada.");
+                    }
                     return false;
                 }
                 // Abajo Izquierda
@@ -85,13 +99,16 @@ public class Reina extends Pieza
                         && (piezas[posicionPiezaX + 1][posicionPiezaY - 1].color == 0
                         || piezas[posicionPiezaX + 1][posicionPiezaY - 1].color != turno)) {
                     temporalReina = piezas[posicionPiezaX += 1][posicionPiezaY -= 1];
-                    if (!validarSiPiezaNoEsAlcanzable(turno, temporalReina, piezas, nuevaPosicionX, nuevaPosicionY))
+                    if (!validarSiPiezaNoEsAlcanzable(turno, temporalReina, piezas, nuevaPosicionX, nuevaPosicionY, mostrarMensaje))
                     {
                         return false;
                     }
                 } else if ((posicionPiezaX - nuevaPosicionX < 0) && (posicionPiezaY - nuevaPosicionY > 0)
                         && (piezas[posicionPiezaX + 1][posicionPiezaY - 1].color == turno)) {
-                    System.out.println("Esta reina no puede seguir este camino porque está siendo bloqueada por una pieza aliada.");
+                    if (mostrarMensaje)
+                    {
+                        System.out.println("Esta reina no puede seguir este camino porque está siendo bloqueada por una pieza aliada.");
+                    }
                     return false;
                 }
                 if (posicionPiezaX == nuevaPosicionX && posicionPiezaY != nuevaPosicionY
@@ -109,7 +126,10 @@ public class Reina extends Pieza
         }
         catch (ArrayIndexOutOfBoundsException e)
         {
-            System.out.println("El objetivo no es alcanzable para la reina. (out of bounds)");
+            if (mostrarMensaje)
+            {
+                System.out.println("El objetivo no es alcanzable para la reina. (out of bounds)");
+            }
             return false;
         }
 
@@ -118,13 +138,16 @@ public class Reina extends Pieza
             return true;
         }
 
-        System.out.println("El objetivo no es alcanzable para la reina.");
+        if (mostrarMensaje)
+        {
+            System.out.println("El objetivo no es alcanzable para la reina.");
+        }
 
         return false;
     }
 
     public boolean movimientosTorre(byte turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX,
-                                    int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal)
+                                    int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal, boolean mostrarMensaje)
     {
         Pieza temporalReina = piezas[posicionPiezaX][posicionPiezaY];
         int posicionOriginalX = posicionPiezaX;
@@ -137,7 +160,10 @@ public class Reina extends Pieza
                         || ((posicionPiezaX - nuevaPosicionX < 0) && (posicionPiezaY - nuevaPosicionY > 0))
                         || ((posicionPiezaX - nuevaPosicionX > 0) && (posicionPiezaY - nuevaPosicionY < 0)))
                 {
-                    System.out.println("Las torres no se pueden mover diagonalmente.");
+                    if (mostrarMensaje)
+                    {
+                        System.out.println("Las torres no se pueden mover diagonalmente.");
+                    }
                     return false;
                 }
                 // Arriba
@@ -145,13 +171,16 @@ public class Reina extends Pieza
                         && (piezas[posicionPiezaX - 1][posicionPiezaY].color == 0
                         || piezas[posicionPiezaX - 1][posicionPiezaY].color != turno)) {
                     temporalReina = piezas[posicionPiezaX -= 1][posicionPiezaY];
-                    if (!validarSiPiezaNoEsAlcanzable(turno, temporalReina, piezas, nuevaPosicionX, nuevaPosicionY))
+                    if (!validarSiPiezaNoEsAlcanzable(turno, temporalReina, piezas, nuevaPosicionX, nuevaPosicionY, mostrarMensaje))
                     {
                         return false;
                     }
                 } else if ((posicionPiezaX - nuevaPosicionX > 0) && (posicionPiezaY - nuevaPosicionY == 0)
                         && (piezas[posicionPiezaX - 1][posicionPiezaY].color == turno)) {
-                    System.out.println("Esta reina no puede seguir este camino porque está siendo bloqueada por una pieza aliada.");
+                    if (mostrarMensaje)
+                    {
+                        System.out.println("Esta reina no puede seguir este camino porque está siendo bloqueada por una pieza aliada.");
+                    }
                     return false;
                 }
                 // Abajo
@@ -159,13 +188,16 @@ public class Reina extends Pieza
                         && (piezas[posicionPiezaX + 1][posicionPiezaY].color == 0
                         || piezas[posicionPiezaX + 1][posicionPiezaY].color != turno)) {
                     temporalReina = piezas[posicionPiezaX += 1][posicionPiezaY];
-                    if (!validarSiPiezaNoEsAlcanzable(turno, temporalReina, piezas, nuevaPosicionX, nuevaPosicionY))
+                    if (!validarSiPiezaNoEsAlcanzable(turno, temporalReina, piezas, nuevaPosicionX, nuevaPosicionY, mostrarMensaje))
                     {
                         return false;
                     }
                 } else if ((posicionPiezaX - nuevaPosicionX < 0) && (posicionPiezaY - nuevaPosicionY == 0)
                         && (piezas[posicionPiezaX + 1][posicionPiezaY].color == turno)) {
-                    System.out.println("Esta reina no puede seguir este camino porque está siendo bloqueada por una pieza aliada.");
+                    if (mostrarMensaje)
+                    {
+                        System.out.println("Esta reina no puede seguir este camino porque está siendo bloqueada por una pieza aliada.");
+                    }
                     return false;
                 }
                 // Derecha
@@ -173,13 +205,16 @@ public class Reina extends Pieza
                         && (piezas[posicionPiezaX][posicionPiezaY + 1].color == 0
                         || piezas[posicionPiezaX][posicionPiezaY + 1].color != turno)) {
                     temporalReina = piezas[posicionPiezaX][posicionPiezaY += 1];
-                    if (!validarSiPiezaNoEsAlcanzable(turno, temporalReina, piezas, nuevaPosicionX, nuevaPosicionY))
+                    if (!validarSiPiezaNoEsAlcanzable(turno, temporalReina, piezas, nuevaPosicionX, nuevaPosicionY, mostrarMensaje))
                     {
                         return false;
                     }
                 } else if ((posicionPiezaX - nuevaPosicionX == 0) && (posicionPiezaY - nuevaPosicionY < 0)
                         && (piezas[posicionPiezaX][posicionPiezaY + 1].color == turno)) {
-                    System.out.println("Esta reina no puede seguir este camino porque está siendo bloqueada por una pieza aliada.");
+                    if (mostrarMensaje)
+                    {
+                        System.out.println("Esta reina no puede seguir este camino porque está siendo bloqueada por una pieza aliada.");
+                    }
                     return false;
                 }
                 // Izquierda
@@ -187,13 +222,16 @@ public class Reina extends Pieza
                         && (piezas[posicionPiezaX][posicionPiezaY - 1].color == 0
                         || piezas[posicionPiezaX][posicionPiezaY - 1].color != turno)) {
                     temporalReina = piezas[posicionPiezaX][posicionPiezaY -= 1];
-                    if (!validarSiPiezaNoEsAlcanzable(turno, temporalReina, piezas, nuevaPosicionX, nuevaPosicionY))
+                    if (!validarSiPiezaNoEsAlcanzable(turno, temporalReina, piezas, nuevaPosicionX, nuevaPosicionY, mostrarMensaje))
                     {
                         return false;
                     }
                 } else if ((posicionPiezaX - nuevaPosicionX == 0) && (posicionPiezaY - nuevaPosicionY > 0)
                         && (piezas[posicionPiezaX][posicionPiezaY - 1].color == turno)) {
-                    System.out.println("Esta reina no puede seguir este camino porque está siendo bloqueada por una pieza aliada.");
+                    if (mostrarMensaje)
+                    {
+                        System.out.println("Esta reina no puede seguir este camino porque está siendo bloqueada por una pieza aliada.");
+                    }
                     return false;
                 }
 //                if ((posicionPiezaX == nuevaPosicionX || posicionPiezaY != nuevaPosicionY)
@@ -211,7 +249,10 @@ public class Reina extends Pieza
         }
         catch (ArrayIndexOutOfBoundsException e)
         {
-            System.out.println("El objetivo no es alcanzable para la reina. (out of bounds)");
+            if (mostrarMensaje)
+            {
+                System.out.println("El objetivo no es alcanzable para la reina. (out of bounds)");
+            }
             return false;
         }
 
@@ -220,22 +261,28 @@ public class Reina extends Pieza
             return true;
         }
 
-        System.out.println("El objetivo no es alcanzable para la reina.");
+        if (mostrarMensaje)
+        {
+            System.out.println("El objetivo no es alcanzable para la reina.");
+        }
 
         return false;
     }
 
-    public boolean validarSiPiezaNoEsAlcanzable(byte turno, Pieza temporalReina, Pieza[][] piezas, int nuevaPosicionX, int nuevaPosicionY)
+    public boolean validarSiPiezaNoEsAlcanzable(byte turno, Pieza temporalReina, Pieza[][] piezas, int nuevaPosicionX, int nuevaPosicionY, boolean mostrarMensaje)
     {
         if ((temporalReina.color != turno && temporalReina.color != 0) && temporalReina != piezas[nuevaPosicionX][nuevaPosicionY])
         {
-            System.out.println("Esta reina no puede seguir este camino porque está siendo bloqueada por una pieza enemiga.");
+            if (mostrarMensaje)
+            {
+                System.out.println("Esta reina no puede seguir este camino porque está siendo bloqueada por una pieza enemiga.");
+            }
             return false;
         }
         return true;
     }
 
-    public boolean reyAliadoEstaEnJaque(byte turno, Pieza[][] piezas, Tablero tablero)
+    public boolean reyAliadoEstaEnJaque(byte turno, Pieza[][] piezas, Tablero tablero, boolean mostrarMensaje)
     {
         Pieza[] piezasEnemigas;
 
@@ -269,9 +316,12 @@ public class Reina extends Pieza
                     distanciaMovimientoPeon = ((Peon)piezaEnemiga).obtenerDistanciaMovimiento();
                 }
 
-                if (!piezaEnemiga.piezaMuerta && piezaEnemiga.estaJaqueando(turno, piezas, tablero))
+                if (!piezaEnemiga.piezaMuerta && piezaEnemiga.estaJaqueando(turno, piezas, tablero, mostrarMensaje))
                 {
-                    System.out.println("No puedes moverte aquí porque están jaqueando a aliado.");
+                    if (mostrarMensaje)
+                    {
+                        System.out.println("No puedes moverte aquí porque están jaqueando a aliado.");
+                    }
                     return true;
                 }
 
@@ -285,11 +335,14 @@ public class Reina extends Pieza
             }
         }
 
-        System.out.println("No se esta jaqueando a aliado.");
+        if (mostrarMensaje)
+        {
+            System.out.println("No se esta jaqueando a aliado.");
+        }
         return false;
     }
 
-    public boolean estaJaqueando(byte turno, Pieza[][] piezas, Tablero tablero)
+    public boolean estaJaqueando(byte turno, Pieza[][] piezas, Tablero tablero, boolean mostrarMensaje)
     {
         Pieza[] piezasJugador;
         Pieza reyEnemigo = null;
@@ -315,9 +368,12 @@ public class Reina extends Pieza
         }
 
         boolean jaque = moverANuevaPosicion(turno, this.obtenerCoordenadaX(), this.obtenerCoordenadaY(), reyEnemigo.obtenerCoordenadaX(),
-                reyEnemigo.obtenerCoordenadaY(), piezas, reyEnemigo, tablero);
+                reyEnemigo.obtenerCoordenadaY(), piezas, reyEnemigo, tablero, mostrarMensaje);
 
-        System.out.println("¿Es jaque? " + jaque);
+        if (mostrarMensaje)
+        {
+            System.out.println("¿Es jaque? " + jaque);
+        }
 
         return jaque;
     }

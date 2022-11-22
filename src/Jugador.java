@@ -8,6 +8,8 @@ public class Jugador
 
     byte color;
 
+    boolean debug = false;
+
     public Jugador(byte turno, Tablero tablero)
     {
         this.tablero = tablero;
@@ -30,40 +32,40 @@ public class Jugador
         {
             //*************BLANCOS*****************
             //Piezas de la fila 1
-            piezasJugador[0] = new Torre( 3, 1, this);
-            piezasJugador[1] = new Caballo( 5, 1, this);
-            piezasJugador[2] = new Alfil( 4, 1, this);
-            piezasJugador[3] = new Reina( 2, 1, this);
-            piezasJugador[4] = new Rey( 1, 1, this);
-            piezasJugador[5] = new Alfil( 4, 1, this);
-            piezasJugador[6] = new Caballo( 5, 1, this);
-            piezasJugador[7] = new Torre( 3, 1, this);
+            piezasJugador[0] = new Torre( 3, 1, this, 7, 0);
+            piezasJugador[1] = new Caballo( 5, 1, this, 7, 1);
+            piezasJugador[2] = new Alfil( 4, 1, this, 7, 2);
+            piezasJugador[3] = new Reina( 2, 1, this, 7, 3);
+            piezasJugador[4] = new Rey( 1, 1, this, 7, 4);
+            piezasJugador[5] = new Alfil( 4, 1, this, 7, 5);
+            piezasJugador[6] = new Caballo( 5, 1, this, 7, 6);
+            piezasJugador[7] = new Torre( 3, 1, this, 7, 7);
 
             tablero.reyBlanco = piezasJugador[4];
 
             //Piezas de la fila 2
             for(int x = 8; x < 16; x++) {
-                piezasJugador[x] = new Peon(6, 1, this);
+                piezasJugador[x] = new Peon(6, 1, this, 6, x-8);
             }
 
         } else if (turno == 2)
         {
             //*************NEGROS*****************
             //Piezas de la fila 8
-            piezasJugador[0] = new Torre( 9, 2, this);
-            piezasJugador[1] = new Caballo( 11, 2, this);
-            piezasJugador[2] = new Alfil( 10, 2, this);
-            piezasJugador[3] = new Reina(8, 2, this);
-            piezasJugador[4] = new Rey( 7, 2, this);
-            piezasJugador[5] = new Alfil( 10, 2, this);
-            piezasJugador[6] = new Caballo( 11, 2, this);
-            piezasJugador[7] = new Torre( 9, 2, this);
+            piezasJugador[0] = new Torre( 9, 2, this, 0, 0);
+            piezasJugador[1] = new Caballo( 11, 2, this, 0, 1);
+            piezasJugador[2] = new Alfil( 10, 2, this, 0, 2);
+            piezasJugador[3] = new Reina(8, 2, this, 0, 3);
+            piezasJugador[4] = new Rey( 7, 2, this, 0, 4);
+            piezasJugador[5] = new Alfil( 10, 2, this, 0, 5);
+            piezasJugador[6] = new Caballo( 11, 2, this, 0, 6);
+            piezasJugador[7] = new Torre( 9, 2, this, 0, 7);
 
             tablero.reyNegro = piezasJugador[4];
 
             //Piezas de la fila 7
             for(int x = 8; x < 16; x++) {
-                piezasJugador[x] = new Peon(12, 2, this);
+                piezasJugador[x] = new Peon(12, 2, this, 1, x-8);
             }
         }
     }
@@ -73,7 +75,7 @@ public class Jugador
         return piezasJugador;
     }
 
-    public boolean moverPieza(byte turno, short posicionPiezaX, short posicionPiezaY, short nuevaPosicionX, short nuevaPosicionY, Pieza[][] piezas)
+    public boolean moverPieza(byte turno, short posicionPiezaX, short posicionPiezaY, short nuevaPosicionX, short nuevaPosicionY, Pieza[][] piezas, boolean mostrarMensaje)
     {
         Pieza piezaPosicionInicial = piezas[posicionPiezaX][posicionPiezaY];
         Pieza piezaEliminada;
@@ -83,12 +85,15 @@ public class Jugador
         if(posicionPiezaX > 7 || posicionPiezaY > 7 || nuevaPosicionX > 7 || nuevaPosicionY > 7 ||
                 posicionPiezaX < 0 || posicionPiezaY < 0 || nuevaPosicionX < 0 || nuevaPosicionY < 0)
         {
-            System.out.println("No te puedes salir de los limites.");
+            if (mostrarMensaje)
+            {
+                System.out.println("No te puedes salir de los limites.");
+            }
             return false;
         }
 
         if(!(piezas[posicionPiezaX][posicionPiezaY].validacionBasica(turno, posicionPiezaX, posicionPiezaY,
-                nuevaPosicionX, nuevaPosicionY, piezas[nuevaPosicionX][nuevaPosicionY])))
+                nuevaPosicionX, nuevaPosicionY, piezas[nuevaPosicionX][nuevaPosicionY], mostrarMensaje)))
         {
             return false;
         }
@@ -110,7 +115,7 @@ public class Jugador
         // no puedes ir adelante como alfil o diagonal como torre, etc.)
 
         boolean valorEjecucion = piezas[posicionPiezaX][posicionPiezaY].moverANuevaPosicion(turno, posicionPiezaX, posicionPiezaY, nuevaPosicionX,
-                nuevaPosicionY, piezas, piezas[nuevaPosicionX][nuevaPosicionY], tablero);
+                nuevaPosicionY, piezas, piezas[nuevaPosicionX][nuevaPosicionY], tablero, mostrarMensaje);
 
         if (valorEjecucion && (piezas[nuevaPosicionX][nuevaPosicionY].color != turno && piezas[nuevaPosicionX][nuevaPosicionY].color != 0))
         {
@@ -119,7 +124,7 @@ public class Jugador
 
             if (this == tablero.jugadores[0])
             {
-                tablero.jugadores[1].estaEnJaque = piezas[nuevaPosicionX][nuevaPosicionY].estaJaqueando(turno, piezas, tablero);
+                tablero.jugadores[1].estaEnJaque = piezas[nuevaPosicionX][nuevaPosicionY].estaJaqueando(turno, piezas, tablero, debug);
 
 //                if(tablero.jugadores[1].estaEnJaque && tablero.terminarPartida((byte)2))
 //                {
@@ -132,7 +137,7 @@ public class Jugador
 //                    return true;
 //                }
             } else if (this == tablero.jugadores[1]) {
-                tablero.jugadores[0].estaEnJaque = piezas[nuevaPosicionX][nuevaPosicionY].estaJaqueando(turno, piezas, tablero);
+                tablero.jugadores[0].estaEnJaque = piezas[nuevaPosicionX][nuevaPosicionY].estaJaqueando(turno, piezas, tablero, debug);
 //                if(tablero.jugadores[0].estaEnJaque && tablero.terminarPartida((byte)1))
 //                {
 //                    tablero.JaqueMate = true;
@@ -151,11 +156,19 @@ public class Jugador
 //                return true;
 //            }
 
-            if (piezas[nuevaPosicionX][nuevaPosicionY].reyAliadoEstaEnJaque(turno, piezas, tablero))
+            if (piezas[nuevaPosicionX][nuevaPosicionY].reyAliadoEstaEnJaque(turno, piezas, tablero, debug))
             {
                 revertirCambios(piezas, posicionPiezaX, posicionPiezaY, nuevaPosicionX, nuevaPosicionY, piezaPosicionInicial, piezaEliminada);
-                tablero.imprimirTablero();
+                if (mostrarMensaje)
+                {
+                    tablero.imprimirTablero();
+                }
                 return false;
+            }
+
+            if (this.estaEnJaque)
+            {
+                this.estaEnJaque = false;
             }
 
             return resultado;
@@ -167,7 +180,7 @@ public class Jugador
 
             if (this == tablero.jugadores[0])
             {
-                tablero.jugadores[1].estaEnJaque = piezas[nuevaPosicionX][nuevaPosicionY].estaJaqueando(turno, piezas, tablero);
+                tablero.jugadores[1].estaEnJaque = piezas[nuevaPosicionX][nuevaPosicionY].estaJaqueando(turno, piezas, tablero, debug);
 //                if(tablero.jugadores[1].estaEnJaque && tablero.terminarPartida((byte)2))
 //                {
 //                    tablero.JaqueMate = true;
@@ -179,7 +192,7 @@ public class Jugador
 //                    return true;
 //                }
             } else if (this == tablero.jugadores[1]) {
-                tablero.jugadores[0].estaEnJaque = piezas[nuevaPosicionX][nuevaPosicionY].estaJaqueando(turno, piezas, tablero);
+                tablero.jugadores[0].estaEnJaque = piezas[nuevaPosicionX][nuevaPosicionY].estaJaqueando(turno, piezas, tablero, debug);
 //                if(tablero.jugadores[0].estaEnJaque && tablero.terminarPartida((byte)1))
 //                {
 //                    tablero.JaqueMate = true;
@@ -198,11 +211,19 @@ public class Jugador
 //                return true;
 //            }
 
-            if (piezas[nuevaPosicionX][nuevaPosicionY].reyAliadoEstaEnJaque(turno, piezas, tablero))
+            if (piezas[nuevaPosicionX][nuevaPosicionY].reyAliadoEstaEnJaque(turno, piezas, tablero, debug))
             {
                 revertirCambios(piezas, posicionPiezaX, posicionPiezaY, nuevaPosicionX, nuevaPosicionY, piezaPosicionInicial, piezaEliminada);
-                tablero.imprimirTablero();
+                if (mostrarMensaje)
+                {
+                    tablero.imprimirTablero();
+                }
                 return false;
+            }
+
+            if (this.estaEnJaque)
+            {
+                this.estaEnJaque = false;
             }
 
             return resultado;

@@ -6,12 +6,17 @@ public class Rey extends Pieza{
         super(simbolo, color, jugador);
     }
 
+    public Rey(int simbolo, int color, Jugador jugador, int coordenadaX, int coordenadaY)
+    {
+        super(simbolo, color, jugador, coordenadaX, coordenadaY);
+    }
+
     public Rey(Rey piezaOriginal) {
         super(piezaOriginal);
     }
 
     public boolean moverANuevaPosicion (byte turno, int posicionPiezaX, int posicionPiezaY, int nuevaPosicionX,
-                                        int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal, Tablero tablero) {
+                                        int nuevaPosicionY, Pieza[][] piezas, Pieza variableNuevaPosicionTemporal, Tablero tablero, boolean mostrarMensaje) {
 
         try {
         /* Condición que verifica la posición deseada de la pieza hacia (x-1)(y-1). Si se cumple,
@@ -109,12 +114,15 @@ public class Rey extends Pieza{
 
         }
 
-        System.out.println("El objetivo no se encuentra en el rango del rey.");
+        if (mostrarMensaje)
+        {
+            System.out.println("El objetivo no se encuentra en el rango del rey.");
+        }
 
         return false;
     }
 
-    public boolean reyAliadoEstaEnJaque(byte turno, Pieza[][] piezas, Tablero tablero)
+    public boolean reyAliadoEstaEnJaque(byte turno, Pieza[][] piezas, Tablero tablero, boolean mostrarMensaje)
     {
         Pieza[] piezasEnemigas;
 
@@ -148,9 +156,12 @@ public class Rey extends Pieza{
                     distanciaMovimientoPeon = ((Peon)piezaEnemiga).obtenerDistanciaMovimiento();
                 }
 
-                if (!piezaEnemiga.piezaMuerta && piezaEnemiga.estaJaqueando(turno, piezas, tablero))
+                if (!piezaEnemiga.piezaMuerta && piezaEnemiga.estaJaqueando(turno, piezas, tablero, mostrarMensaje))
                 {
-                    System.out.println("No puedes moverte aquí porque están jaqueando a aliado.");
+                    if (mostrarMensaje)
+                    {
+                        System.out.println("No puedes moverte aquí porque están jaqueando a aliado.");
+                    }
                     return true;
                 }
 
@@ -164,11 +175,14 @@ public class Rey extends Pieza{
             }
         }
 
-        System.out.println("No se esta jaqueando a aliado.");
+        if (mostrarMensaje)
+        {
+            System.out.println("No se esta jaqueando a aliado.");
+        }
         return false;
     }
 
-    public boolean estaJaqueando(byte turno, Pieza[][] piezas, Tablero tablero)
+    public boolean estaJaqueando(byte turno, Pieza[][] piezas, Tablero tablero, boolean mostrarMensaje)
     {
         Pieza[] piezasJugador;
         Pieza reyEnemigo = null;
@@ -194,9 +208,12 @@ public class Rey extends Pieza{
         }
 
         boolean jaque = moverANuevaPosicion(turno, this.obtenerCoordenadaX(), this.obtenerCoordenadaY(), reyEnemigo.obtenerCoordenadaX(),
-                reyEnemigo.obtenerCoordenadaY(), piezas, reyEnemigo, tablero);
+                reyEnemigo.obtenerCoordenadaY(), piezas, reyEnemigo, tablero, mostrarMensaje);
 
-        System.out.println("¿Es jaque? " + jaque);
+        if (mostrarMensaje)
+        {
+            System.out.println("¿Es jaque? " + jaque);
+        }
 
         return jaque;
     }
